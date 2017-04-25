@@ -38,6 +38,7 @@ class Template821ac16747 extends Latte\Runtime\Template
 	function prepare()
 	{
 		extract($this->params);
+		if (isset($this->params['room'])) trigger_error('Variable $room overwritten in foreach on line 86');
 		Nette\Bridges\ApplicationLatte\UIRuntime::initialize($this, $this->parentName, $this->blocks);
 		
 	}
@@ -64,18 +65,10 @@ class Template821ac16747 extends Latte\Runtime\Template
         padding-top: 0.1%;
         padding-bottom: 1%;
         margin: 0.3%;
-        background: rgba(210, 212, 221, 0.7);
-        width: 32%;
-    }
-
-    #theme_container {
-        border: 2px solid black;
-        padding-bottom: 1%;
-        padding-left: 2%;
-        padding-right: 2%;
-        margin-top: 0.5%;
-        background: rgba(88, 106, 183, 0.3);
-    }
+        background: rgba(210, 212, 221, 0.8);
+        width: 32.6%;
+        max-width: 32.6%;
+    } 
 
     #Theme_name {
         color: black;
@@ -107,7 +100,7 @@ class Template821ac16747 extends Latte\Runtime\Template
 		extract($_args);
 ?>
 
-<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 58 */ ?>/images/obr1.JPG")'>
+<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 50 */ ?>/images/obr1.JPG")'>
 
     <!-- Menu -->
     <header>
@@ -118,7 +111,7 @@ class Template821ac16747 extends Latte\Runtime\Template
                 </div>
                 <div>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" data-toggle="modal" data-target="#login-modal" ><span class="glyphicon glyphicon-comment"></span>  Nová miestnosť </a></li>
+                        <li><a href="" data-toggle="modal" data-target="#newRoom" ><span class="glyphicon glyphicon-comment"></span>  Nová miestnosť </a></li>
 
                         <li><a  href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Message:default")) ?>"><span class="glyphicon glyphicon-envelope"></span>  Správy (0)</a></li>
 
@@ -131,93 +124,76 @@ class Template821ac16747 extends Latte\Runtime\Template
                                               
                             </ul>
                         </li>
-                        <li><a href="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 82 */ ?>/sign/out"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
+                        <li><a href="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 74 */ ?>/sign/out"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
 
-                    
-    <!-- Vyber miestnosti -->
+    <div class="container-fluid">
 
-    <div id='main_panel' class="container-fluid">
+        <div class="row" id="theme_container">
+<?php
+		if ($rooms != null) {
+?>
+                <div >
+<?php
+			$iterations = 0;
+			foreach ($rooms as $room) {
+?>
+                        <div id="themes" class="col-md-4">
+                            <div style="overflow-wrap: break-word">
+                                <h3> <?php echo LR\Filters::escapeHtmlText($room->title) /* line 89 */ ?> </h3>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div id="theme_container" class="col-md-12">
-                    <div id='KKK' class='row'> 
-                        <h2 id="Theme_name"> Názov nadtémy </h2>
+                                <p id='popis' style="overflow: hidden;"> <?php echo LR\Filters::escapeHtmlText($room->description) /* line 91 */ ?> </p>
+                            </div>
+                            </br>
+<?php
+				if ($room->locked == 't') {
+?>
+                                <span class="glyphicon glyphicon-lock"></span>
+<?php
+				}
+?>
 
-                        <a href="" data-toggle="modal" data-target="#login-modal" > <button id='add_local_theme'> Pridať miestnosť </button> </a>
+                            <a ><button id='add_local_theme'> Vstúpiť </button></a>
+
+<?php
+				if ($room->id_users == $user->id) {
+?>
+                                <a href="" data-toggle="modal" data-target="#roomSettings" ><button id='add_local_theme'> Upravit Miestnosť </button></a>
+                                <!--  $room->id_rooms -->
+<?php
+				}
+?>
+                        </div>
+<?php
+				$iterations++;
+			}
+?>
+
+
+<?php
+		}
+		if ($rooms == null) {
+?>
+
+                    <div>
+                        <h1> V chate sa nenachádzajú žiadne miestnosti. </h1>
+                        <h3> Vytvorte ju spolu s nami. </h3>
                     </div>
-                    <div class="row">
-                        <div id="themes" class="col-xs-6 col-md-4">
-                            <h3> Názov miestnosti </h3>
-                            <p id='popis'> Popis miestnosti </p>
-                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default")) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
-                        </div>
-
-                        <div id="themes" class="col-xs-6 col-md-4">
-                            <h3> Názov miestnosti </h3>
-                            <p id='popis'> Popis miestnosti </p>
-                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default")) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
-                        </div>
-
-                        <div id="themes" class="col-xs-6 col-md-4">
-                            <h3> Názov miestnosti </h3>
-                            <p id='popis'> Popis miestnosti </p>
-                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default")) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
-                        </div>
-                    </div>
-                </div>
+<?php
+		}
+?>
             </div>
-        </div>
-
-        <div id="main_block" class="container-fluid">
-            <div class="row">
-                <div id="theme_container" class="col-md-12">
-                    <div id='KKK' class='row'> 
-                        <h2 id="Theme_name"> Názov nadtémy </h2>
-                        <a href="" data-toggle="modal" data-target="#login-modal" > <button id='add_local_theme'> Pridať miestnosť </button> </a> 
-                    </div>
-                    <div class="row">
-                        <div id="themes" class="col-xs-6 col-md-4">
-                            <h3> Názov miestnosti </h3>
-                            <p id='popis'> Popis miestnosti </p>
-                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default")) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
-                        </div>
-
-                        <div id="themes" class="col-xs-6 col-md-4">
-                            <h3> Názov miestnosti </h3>
-                            <p id='popis'> Popis miestnosti </p>
-                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default")) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
-                        </div>
-
-                        <div id="themes" class="col-xs-6 col-md-4">
-                            <h3> Názov miestnosti </h3>
-                            <p id='popis'> Popis miestnosti </p>
-                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default")) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
-                        </div>
-
-                        <div id="themes" class="col-xs-6 col-md-4">
-                            <h3> Názov miestnosti </h3>
-                            <p id='popis'> Popis miestnosti </p>
-                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default")) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>     
-
-    </div>
+        </div>  
 </body>
 
 
-<!-- Modal Okno -->
+<!-- New Room modal -->
 
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="newRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="loginmodal-container">
             <div class="modal-header">
@@ -225,33 +201,43 @@ class Template821ac16747 extends Latte\Runtime\Template
                 <h3 class="modal-title" id="myModalLabel">Vytvorte novú miestnosť</h3>
             </div>
             <div class="modal-body">
-                <form>
-                    <h3>Nadpis miestnosti</h3>
-                    <input type="text"> </input>
-                    <h3>Popis miestnosti</h3>
-                    <input type="text"> </input>
-                    <h3>Vyberte kategóriu</h3>
+<?php
+		/* line 131 */ $_tmp = $this->global->uiControl->getComponent("newRoomForm");
+		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
+		$_tmp->render();
+?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="" data-dismiss="modal">Zavrieť</button>
 
-                    <div class="form-group">
-                        <label for="sel1">Select list (select one):</label>
-                        <select class="form-control" id="sel1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                        <br>
-                        </form>        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="" data-dismiss="modal">Zavrieť</button>
-                        <button type="button" class="" data-dismiss="modal"> Vytvoriť </button>
-                    </div>
             </div>
         </div>
     </div>
+</div>
+                
+<!-- Room settings modal -->
 
-    <footer id='foot'> © 2017 By: Marek Unčík, For: Webové Aplikace (LS 2017)</footer>
+<div class="modal fade" id="roomSettings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h3 class="modal-title" id="myModalLabel">Úprava miestnosťi</h3>
+            </div>
+            <div class="modal-body">
+<?php
+		/* line 151 */ $_tmp = $this->global->uiControl->getComponent("editRoomForm");
+		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
+		$_tmp->render();
+?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="" data-dismiss="modal">Zavrieť</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 <?php
 	}
 

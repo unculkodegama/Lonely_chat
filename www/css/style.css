@@ -4,6 +4,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-attachment:fixed;
 }
 
 /* Nadpis malý vlavo hore - nesahat */
@@ -59,7 +60,7 @@
 
 /* horne menu - nesahat */
 .menu {
-    background: rgba(44, 47, 81, 0.6);
+    background: rgb(44, 47, 81);
     border-bottom: 4px solid #222a68;
     width:100%;
     height: auto;
@@ -106,22 +107,20 @@
     color: #04A3ED;
 }
 
-/* hlavné okno - nesahat */
-#main_panel {
-    width: 98%;
-    height: 90%;
-    border: 2px #18273f solid;
-    top: 51.3%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#theme_container {
+    margin-top: 2%;
+    width: 95%;
+    height: 95%;
+    top: 65%;
+    left: 50%;   
+    transform: translate(-50%, -65%);
     position: absolute;
-    background: rgba(199, 213, 237, 0.6);
+    
 }
-
 /* patička - nesahat */
 #foot {
     position:absolute;
-    bottom: 0;
+    bottom: 0%;
     left: 50%;
     transform: translate(-50%);
     font-size: 16px;

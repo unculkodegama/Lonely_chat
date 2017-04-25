@@ -121,21 +121,9 @@ class Template06ed01e364 extends Latte\Runtime\Template
     </div>    
 
     <div id="div_input">
-        <!--<div>
-            <input class="form-controla" id="input" type="text" placeholder="Meno" required>
-        </div>
-        <div>
-            <input class="form-controla" id="input" type="password" placeholder="Heslo" required>
-        </div>
-        <div>
-            <a href="<?php echo LR\Filters::escapeHtmlComment($basePath) /* line 86 */ ?>/basepage"><button id="Button" type="button" style="width: 100%"> Prihlásiť sa </button></a>
-        </div> 
-        <div>
-            <a n:href="up"><button id="Button" type="button" style="width: 100%"> Registrácia </button></a>
-        </div>
-        -->
+
 <?php
-		/* line 92 */ $_tmp = $this->global->uiControl->getComponent("signInForm");
+		/* line 80 */ $_tmp = $this->global->uiControl->getComponent("signInForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
 ?>

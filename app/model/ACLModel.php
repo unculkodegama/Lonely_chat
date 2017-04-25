@@ -22,7 +22,7 @@ class ACLModel {
         $this->acl->addResource('sign');
 
         //povolenia
-        $this->acl->allow('guest', 'sign', ['default', 'in']);
+        $this->acl->allow('guest', 'sign', ['default', 'up']);
         $this->acl->allow('member', 'sign', 'out');
         $this->acl->allow('member', 'chatpage', 'default');
         $this->acl->allow('member', 'account', 'default');
