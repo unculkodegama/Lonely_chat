@@ -1,0 +1,123 @@
+{block head}
+
+<style>
+
+    #div_input {        
+        position: fixed;
+        top: 47%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #blok {
+        margin-bottom: auto;
+        padding-bottom: 0px;
+    }
+
+    #Button, #input {
+        margin-bottom: 10px; 
+        color: #ffffff;
+        background: rgba(7,12,104,0.2);
+        border: 3px solid #ffffff;
+        padding: 2%;
+        font-size: large;
+        text-align: center;
+        font-weight: bold;
+        transition: color 0.1s ease-out,
+            background-color 0.1s ease-out,
+            border-color 0.1s ease-out;
+    }
+
+    #Button:hover, #Button:active, #input:active, #input:hover {
+        background-color: #ffffff;
+        border-color: #070c68;
+        color: #000000;
+        background: rgba(255,255,255,0.3);
+        transition: color 0.1s ease-in,
+            background-color 0.1s ease-in,
+            border-color 0.1s ease-in;
+    }
+
+</style>
+{/block}
+
+{block content}
+
+<body id="body_image" style='background-image: url("{$basePath}/images/obr1.JPG")'>
+
+    <header>
+        <div class="menu">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <h1 id="nadpis"><a id="link_main" n:href="Basepage:default">Lonely Road.</a></h1>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a n:href="Chatpage:default" ><span class="glyphicon glyphicon-comment"></span>  Nová miestnosť </a></li>
+
+                        <li><a n:href="Message:default" ><span class="glyphicon glyphicon-envelope"></span>  Správy (0)</a></li>
+
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                <span class="glyphicon glyphicon-cog"></span>  Možnosti</a>
+                            <ul class="dropdown-menu">
+                                <li><a n:href="Account:default">Profil</a></li>
+                                <li><a href="#">Zmena hesla</a></li>
+                                    {* <li role="separator" class="divider"></li> *}          
+                            </ul>
+                        </li>
+                        <li><a n:href="Sign:default"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div id='main_panel' class="container-fluid">
+        <form>
+            <div id='div_input'>
+                <div id='blok'>
+                    <h3 id="podnadpis_up"> Základné informácie </h3>
+                    <div>
+                        <input id='input' type="text" class="form-controla" placeholder="Prihlasovacie meno"> 
+                    </div>
+                    <div>
+                        <input id='input' type="text" class="form-controla" placeholder='Prezývka'>
+                    </div>
+                    <div>
+                        <input id='input' type="email" class="form-controla" placeholder='E-mail'>
+                    </div>
+
+                    <h3 id="podnadpis_up" > Osobné informácie </h3>
+
+                    <div>
+                        <input id='input' type="text" class="form-controla" placeholder='Meno'>
+                    </div>
+                    <div>
+                        <input id='input' type="text" class="form-controla" placeholder='Priezvisko'>
+                    </div>
+                    <div>
+                        <input id='input' type="text" class="form-controla" placeholder='Mesto'>
+                    </div>
+                </div>
+
+                <div style="float:left">
+                    <input name="re" id="radio-m" type="radio"><label for="radio-m" id="labela">Muž</label> 
+                </div>
+                <div style="float: right">
+                    <input name="re" id="radio-f" type="radio"><label for="radio-f" id="labela">Žena</label>
+                </div>
+                <br />
+                <div id="saving">    
+                    <a href="#"><button id='Button' type="button">Uložiť</button></a>
+                </div>
+            </div>        
+
+        </form>  
+    </div>
+</body>
+
+<footer id='foot'> © 2017 By: Marek Unčík, For: Webové Aplikace (LS 2017)</footer>
+    {/block} 

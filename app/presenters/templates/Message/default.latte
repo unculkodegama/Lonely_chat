@@ -1,0 +1,61 @@
+{block head}
+
+
+<style>
+    #nadpis {
+        font-family: "Courier New", sans-serif;
+        font-weight: bold;
+        font-size: 28px;
+        color: #000000;
+        margin: 0px;
+        text-decoration: none;
+        padding: 5px 30px;        
+    }
+
+</style>
+{/block}
+
+{block content}
+
+<body id="body_image" style='background-image: url("{$basePath}/images/obr1.JPG")'>
+
+    <header>
+        <div class="menu">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <h1 id="nadpis"><a id="link_main" n:href="Basepage:default">Lonely Road.</a></h1>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a n:href="Chatpage:default" ><span class="glyphicon glyphicon-comment"></span>  Nová miestnosť </a></li>
+                        
+                        <li><a n:href="Message:default" ><span class="glyphicon glyphicon-envelope"></span>  Správy (0)</a></li>
+                        
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                <span class="glyphicon glyphicon-cog"></span>  Možnosti</a>
+                            <ul class="dropdown-menu">
+                                <li><a n:href="Account:default">Profil</a></li>
+                                <li><a href="#">Zmena hesla</a></li>
+                                    {* <li role="separator" class="divider"></li> *}          
+                            </ul>
+                        </li>
+                        <li><a href="{$basePath}/sign/default"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {* foreach tuna bude *}                
+
+    <div id='main_panel' class="container-fluid">
+
+     
+        
+    </div>
+</body>
+
+<footer id='foot'> © 2017 By: Marek Unčík, For: Webové Aplikace (LS 2017)</footer>
+    {/block} 
+
