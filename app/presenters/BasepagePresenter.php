@@ -56,7 +56,7 @@ class BasepagePresenter extends BasePresenter {
 
     function actionEditRoom($id) {
         $this->roomData = $this->model->getRoom($id);
-        if ($this->roomData->user_id != $this->getUser()->id) {
+        if ($this->roomData->id_users != $this->user->id) {
             $this->flashMessage("Ups...Snažís sa dostať tam, kam nemáš! Preč s tebou!");
             $this->redirect("Basepage:default");
         }
@@ -89,13 +89,13 @@ class BasepagePresenter extends BasePresenter {
             $this->redirect('Basepage:default');
             
         };
-        $form->setDefaults($this->roomData);
+        //$form->setDefaults($this->roomData);
         return $form;
     }
 
     function actionDeleteRoom($id) {
         $this->roomData = $this->model->getRoom($id);
-        if ($this->roomData->user_id != $this->getUser()->id) {
+        if ($this->roomData->id_users != $this->getUser()->id) {
             $this->flashMessage("Ups...Snažís sa dostať tam, kam nemáš! Preč s tebou!");
             $this->redirect("Basepage:default");
         }

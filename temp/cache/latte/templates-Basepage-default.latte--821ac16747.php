@@ -161,8 +161,8 @@ class Template821ac16747 extends Latte\Runtime\Template
 
 <?php
 				if ($room->id_users == $user->id) {
-?>
-                                <a href="" data-toggle="modal" data-target="#roomSettings" ><button id='add_local_theme'> Upravit Miestnosť </button></a>
+					?>                                <a href="" data-toggle="modal" data-target="#roomSettings" data-room-id="<?php
+					echo LR\Filters::escapeHtmlAttr($room->id_rooms) /* line 101 */ ?>"><button id='add_local_theme'> Upravit Miestnosť </button></a>
                                 <!--  $room->id_rooms -->
 <?php
 				}
@@ -222,7 +222,7 @@ class Template821ac16747 extends Latte\Runtime\Template
         <div class="loginmodal-container">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h3 class="modal-title" id="myModalLabel">Úprava miestnosťi</h3>
+                <h3 class="modal-title" id="myModalLabel">Úprava miestnosti</h3>
             </div>
             <div class="modal-body">
 <?php
