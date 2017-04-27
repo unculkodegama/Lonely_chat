@@ -13,7 +13,7 @@ class BasepageModel extends Nette\Object {
     }
 
     function getAllRooms() {
-        return $this->db->query("SELECT * FROM rooms ORDER BY title")->fetchAll();
+        return $this->db->query("SELECT * FROM rooms ORDER BY id_rooms")->fetchAll();
     }
 
     function createRoom($userID, $values) {
@@ -31,8 +31,7 @@ class BasepageModel extends Nette\Object {
     }
 
     function updateRoom($values) {
-        return $this->db->query("UPDATE rooms SET ? "
-                        . "WHERE id_rooms = ?", $values, $values['id']);
+        return $this->db->query("UPDATE rooms SET ? WHERE id_rooms = ?", $values, $values['id_rooms']);
     }
 
     function deleteRoom($id) {

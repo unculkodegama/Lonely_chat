@@ -18,6 +18,16 @@
     padding: 5px 30px;        
 }
 
+#nadpisLogo {
+    font-family: "Courier New", sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    color: #000000;
+    margin: 0px;
+    text-decoration: none;
+    padding: 5px 30px;        
+}
+
 /* nastavienie skryteho linku v header */
 #link_main {
     text-decoration: none;
@@ -115,7 +125,7 @@
     left: 50%;   
     transform: translate(-50%, -65%);
     position: absolute;
-    
+
 }
 /* patička - nesahat */
 #foot {
@@ -224,4 +234,11 @@
     transition: color 0.1s ease-in,
         background-color 0.1s ease-in,
         border-color 0.1s ease-in;
+}
+
+#divEditRoom{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

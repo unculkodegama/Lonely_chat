@@ -56,7 +56,7 @@ class BasepagePresenter extends BasePresenter {
 
     function actionEditRoom($id) {
         $this->roomData = $this->model->getRoom($id);
-        if ($this->roomData->id_users != $this->user->id) {
+        if ($this->roomData->id_users != $this->getUser()->id) {
             $this->flashMessage("Ups...Snažís sa dostať tam, kam nemáš! Preč s tebou!");
             $this->redirect("Basepage:default");
         }
@@ -64,7 +64,7 @@ class BasepagePresenter extends BasePresenter {
 
     function createComponentEditRoomForm() {
         $form = new Form();
-
+        
         $form->addText('title', 'Názov miestnosti:')
                 ->setRequired('Musíte zadať názov miestnosti.')
                 ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
@@ -80,16 +80,16 @@ class BasepagePresenter extends BasePresenter {
 
         $form->addSubmit('create', 'Upravit');
 
-        $form->addHidden('id');
+        $form->addHidden('id_rooms');
 
         $form->onSuccess[] = function(Form $form, $values) {
 
             $this->model->updateRoom($values);
-            $this->flashMessage('Miestnosť bola aktualizovaná.');
+            //$this->flashMessage('Miestnosť bola aktualizovaná.');
             $this->redirect('Basepage:default');
             
         };
-        //$form->setDefaults($this->roomData);
+        $form->setDefaults($this->roomData);
         return $form;
     }
 

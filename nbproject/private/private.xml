@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/model/UserManager.php</file>
-            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/model/ACLModel.php</file>
-            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/model/MessageModel.php</file>
-            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/presenters/MessagePresenter.php</file>
-            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/presenters/SignPresenter.php</file>
-            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/presenters/HomepagePresenter.php</file>
-            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/forms/FormFactory.php</file>
+            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/presenters/templates/Basepage/@layout.latte</file>
+            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/presenters/BasepagePresenter.php</file>
+            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/presenters/templates/Basepage/editRoom.latte</file>
+            <file>file:/C:/xampp/htdocs/OnlyChat_project/app/model/BasepageModel.php</file>
         </group>
     </open-files>
 </project-private>
