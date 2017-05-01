@@ -36,7 +36,6 @@ class BasepagePresenter extends BasePresenter {
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako %d znakov.', 70);
 
         $form->addSubmit('create', 'Vytvoriť');
-        //->setAttribute('data-dismiss', 'modal');
 
         $form->onSuccess[] = function(Form $form, $values) {
             try {

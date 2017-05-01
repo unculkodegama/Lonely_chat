@@ -16,6 +16,8 @@ session:
 
 
 services:
+	- App\Model\ChatpageModel
+	- App\Model\AccountModel
 	- App\Model\BasepageModel
 	- App\Model\UserManager
 	- App\Forms\FormFactory

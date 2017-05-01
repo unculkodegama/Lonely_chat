@@ -1,9 +1,9 @@
 <?php
-// source: C:\xampp\htdocs\OnlyChat_project\app\presenters/templates/Basepage/@layout.latte
+// source: C:\xampp\htdocs\OnlyChat_project\app\presenters/templates/Account/@layout.latte
 
 use Latte\Runtime as LR;
 
-class Templatef79b6fcd1b extends Latte\Runtime\Template
+class Templatefcd3f2c88c extends Latte\Runtime\Template
 {
 	public $blocks = [
 		'head' => 'blockHead',
@@ -64,7 +64,7 @@ class Templatef79b6fcd1b extends Latte\Runtime\Template
                 <div>
                     <ul class="nav navbar-nav navbar-right">
                         
-                        <li><a href="" data-toggle="modal" data-target="#newRoom" ><span class="glyphicon glyphicon-comment"></span>  Nová miestnosť </a></li>
+                        
                         
                         <li><a  href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Message:default")) ?>"><span class="glyphicon glyphicon-envelope"></span>  Správy (0)</a></li>
 

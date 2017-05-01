@@ -99,7 +99,8 @@ class SignUpFormFactory {
                         ->getLabelPrototype()->class[] = 'radiolabel';
 
         $form->addSubmit('send', 'Zaregistrovať sa')
-                ->setHtmlId('Button');
+                ->setHtmlId('Button')
+                ->setAttribute('style', 'width:100%');
 
         $form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
             try {

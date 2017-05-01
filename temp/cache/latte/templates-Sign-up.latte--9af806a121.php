@@ -65,49 +65,9 @@ class Template9af806a121 extends Latte\Runtime\Template
         padding-bottom: 0px;
     }
 
-    #Button, #input {
-        margin-bottom: 7%; 
-        color: #ffffff;
-        background: rgba(7,12,104,0.2);
-        border: 3px solid #ffffff;
-        padding: 4%;
-        font-size: large;
-        text-align: center;
-        font-weight: bold;
-        width: 100%;
-        transition: color 0.1s ease-out,
-            background-color 0.1s ease-out,
-            border-color 0.1s ease-out;
-    }
+   
 
-    #Button:hover, #Button:active, #input:active, #input:hover {
-        background-color: #ffffff;
-        border-color: #070c68;
-        color: #000000;
-        background: rgba(255,255,255,0.3);
-        transition: color 0.1s ease-in,
-            background-color 0.1s ease-in,
-            border-color 0.1s ease-in;
-    }
-
-    label {
-        color: white;  
-        cursor: pointer;
-        font-size: 145%;
-        text-align: center;
-        font-weight: bold;
-        padding-left: 16%;
-    }
-
-    /* nastavenie vzhladu label pre výber pohlavia */
-    label:hover {
-        color: #81abc4;  
-        cursor: pointer;
-        font-size: 145%;
-        text-align: center;
-        font-weight: bold;
-        transition: color 0.1s ease-in;
-    }
+   
 </style>   
 
 <?php
@@ -119,7 +79,7 @@ class Template9af806a121 extends Latte\Runtime\Template
 		extract($_args);
 ?>
 
-<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 75 */ ?>/images/obr1.JPG")'>
+<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 35 */ ?>/images/obr1.JPG")'>
     <div id="header_nadpis">
         <h2 id="nadpis_up">Lonely Road.</h2>
     </div>    
@@ -129,7 +89,7 @@ class Template9af806a121 extends Latte\Runtime\Template
             <h3 id="podnadpis_up">Registrácia</h3>
             
 <?php
-		/* line 84 */ $_tmp = $this->global->uiControl->getComponent("signUpForm");
+		/* line 44 */ $_tmp = $this->global->uiControl->getComponent("signUpForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
 ?>

@@ -19,9 +19,6 @@ class Template821ac16747 extends Latte\Runtime\Template
 	function main()
 	{
 		extract($this->params);
-?>
-
-<?php
 		if ($this->getParentName()) return get_defined_vars();
 		$this->renderBlock('head', get_defined_vars());
 ?>
@@ -39,7 +36,7 @@ class Template821ac16747 extends Latte\Runtime\Template
 	function prepare()
 	{
 		extract($this->params);
-		if (isset($this->params['room'])) trigger_error('Variable $room overwritten in foreach on line 40');
+		if (isset($this->params['room'])) trigger_error('Variable $room overwritten in foreach on line 39');
 		Nette\Bridges\ApplicationLatte\UIRuntime::initialize($this, $this->parentName, $this->blocks);
 		
 	}
@@ -71,8 +68,10 @@ class Template821ac16747 extends Latte\Runtime\Template
     #spanSubmit{
         float: right;
         display: inline;
+        color: red;
     }
 </style>
+
 <?php
 	}
 
@@ -83,8 +82,6 @@ class Template821ac16747 extends Latte\Runtime\Template
 ?>
 
 <body>
-
-
 
     <div class="container-fluid">
 
@@ -97,20 +94,22 @@ class Template821ac16747 extends Latte\Runtime\Template
 			$iterations = 0;
 			foreach ($rooms as $room) {
 ?>
-                        <div id="themes" class="col-md-4">
-
-                            <div style="overflow-wrap: break-word">
+                        <div id="themes"  class="col-md-4">
+                            <div style="overflow-wrap: break-word; display: inline">
+                                <div style="width: 100%;">
+                                    <p style="float: left; margin-bottom: -1px"> <?php echo LR\Filters::escapeHtmlText($room->created) /* line 43 */ ?> </p>    
 <?php
 				if ($room->id_users == $user->id) {
-					?>                                    <form id="deleteForm" action="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Basepage:deleteRoom", [$room->id_rooms])) ?>" method="post" onsubmit="return confirm('Naozaj chcete miestnosť: <?php
+					?>                                        <form action="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Basepage:deleteRoom", [$room->id_rooms])) ?>" method="post" onsubmit="return confirm('Naozaj chcete miestnosť: <?php
 					echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeJs($room->title)) /* line 45 */ ?> vymazať?')">
-                                        <a href="" id="spanSubmit"><span  class="glyphicon glyphicon-remove-sign"></span></a>
-                                    </form>
-
+                                            <a href="" onClick="$(this).closest('form').submit()" id="spanSubmit"><span class="glyphicon glyphicon-remove-sign"></span></a>
+                                        </form>
 <?php
 				}
-				?>                                <h3> <?php echo LR\Filters::escapeHtmlText($room->title) /* line 50 */ ?> </h3>
-
+?>
+                                </div>
+                                
+                                <h3 style="border-top: #000 1px solid;"> <?php echo LR\Filters::escapeHtmlText($room->title) /* line 51 */ ?> </h3>
 
                                 <p id='popis' style="overflow: hidden;"> <?php echo LR\Filters::escapeHtmlText($room->description) /* line 53 */ ?> </p>
                             </div>
@@ -121,11 +120,10 @@ class Template821ac16747 extends Latte\Runtime\Template
                                 <span class="glyphicon glyphicon-lock"></span>
 <?php
 				}
-?>
-
-                            <a ><button id='add_local_theme'> Vstúpiť </button></a>
-
+				if ($room->locked != 't') {
+					?>                                <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default", [$room->id_rooms])) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
 <?php
+				}
 				if ($room->id_users == $user->id) {
 					?>                                <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Basepage:editRoom", [$room->id_rooms])) ?>"><button id='add_local_theme'> Upravit Miestnosť </button></a>
 
@@ -138,12 +136,10 @@ class Template821ac16747 extends Latte\Runtime\Template
 			}
 ?>
 
-
 <?php
 		}
 		if ($rooms == null) {
 ?>
-
                     <div>
                         <h1> V chate sa nenachádzajú žiadne miestnosti. </h1>
                         <h3> Vytvorte ju spolu s nami. </h3>
@@ -166,7 +162,7 @@ class Template821ac16747 extends Latte\Runtime\Template
             </div>
             <div class="modal-body">
 <?php
-		/* line 92 */ $_tmp = $this->global->uiControl->getComponent("newRoomForm");
+		/* line 90 */ $_tmp = $this->global->uiControl->getComponent("newRoomForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
 ?>
@@ -179,15 +175,7 @@ class Template821ac16747 extends Latte\Runtime\Template
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#spanSubmit').click(function () {
-            $('#deleteForm').submit();
-        });
 
-    });
-
-</script>
 
 <?php
 	}

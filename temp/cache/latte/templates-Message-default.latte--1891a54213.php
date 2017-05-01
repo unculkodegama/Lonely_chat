@@ -19,6 +19,9 @@ class Template1891a54213 extends Latte\Runtime\Template
 	function main()
 	{
 		extract($this->params);
+?>
+
+<?php
 		if ($this->getParentName()) return get_defined_vars();
 		$this->renderBlock('head', get_defined_vars());
 ?>
@@ -42,23 +45,7 @@ class Template1891a54213 extends Latte\Runtime\Template
 
 	function blockHead($_args)
 	{
-		extract($_args);
-?>
-
-
-<style>
-    #nadpis {
-        font-family: "Courier New", sans-serif;
-        font-weight: bold;
-        font-size: 28px;
-        color: #000000;
-        margin: 0px;
-        text-decoration: none;
-        padding: 5px 30px;        
-    }
-
-</style>
-<?php
+		
 	}
 
 
@@ -67,7 +54,7 @@ class Template1891a54213 extends Latte\Runtime\Template
 		extract($_args);
 ?>
 
-<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 20 */ ?>/images/obr1.JPG")'>
+<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 7 */ ?>/images/obr1.JPG")'>
 
     <header>
         <div class="menu">
@@ -90,7 +77,7 @@ class Template1891a54213 extends Latte\Runtime\Template
                                               
                             </ul>
                         </li>
-                        <li><a href="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 43 */ ?>/sign/default"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
+                        <li><a href="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 30 */ ?>/sign/default"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
                     </ul>
                 </div>
             </div>

@@ -8,11 +8,15 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 	public $blocks = [
 		'head' => 'blockHead',
 		'content' => 'blockContent',
+		'_obsah' => 'blockObsah',
+		'_sprava' => 'blockSprava',
 	];
 
 	public $blockTypes = [
 		'head' => 'html',
 		'content' => 'html',
+		'_obsah' => 'html',
+		'_sprava' => 'html',
 	];
 
 
@@ -33,6 +37,7 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 	function prepare()
 	{
 		extract($this->params);
+		if (isset($this->params['message'])) trigger_error('Variable $message overwritten in foreach on line 72');
 		Nette\Bridges\ApplicationLatte\UIRuntime::initialize($this, $this->parentName, $this->blocks);
 		
 	}
@@ -44,16 +49,6 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 ?>
 
 <style>
-    #nadpis {
-        font-family: "Courier New", sans-serif;
-        font-weight: bold;
-        font-size: 28px;
-        color: #000000;
-        margin: 0px;
-        text-decoration: none;
-        padding: 5px 30px;        
-    }
-
     .message-bubble 
     {
         padding: 10px 0px 10px 0px;
@@ -70,6 +65,42 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 
     .panel-heading { background-color: #3d6da7 !important; color: white !important; }
 
+    #chatPanelMain {
+        position: absolute;
+        top: 46.2%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 77%;
+        width: 90%;
+        background-color: #3d6da7;
+    }
+
+    #middleScroll {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 100%;
+        width: 100%;
+        background-color: white;
+    }
+
+    #panel-footer {
+        position: absolute;
+        bottom: 0%;
+        height: 10%;
+        width: 90.1%;
+        left: 5%;
+    }
+
+    #usermsg {
+        border-radius: 0%; 
+        width: 93.64%;
+    }
+
+    #submitmsg {
+        border-radius: 0%; 
+        width: 6.36%;
+    }
+
 </style>
 <?php
 	}
@@ -80,81 +111,73 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 		extract($_args);
 ?>
 
-<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 35 */ ?>/images/obr1.JPG")'>
+<div class="container" style="display: block">
 
-    <header>
-        <div class="menu">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <h1 id="nadpis"><a id="link_main" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Basepage:default")) ?>">Lonely Road.</a></h1>
-                </div>
-                <div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a  href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default")) ?>"><span class="glyphicon glyphicon-comment"></span>  Nová miestnosť </a></li>
+    <div id="chatPanelMain">
+        <div class="panel-heading">Chatuješ ako: <?php echo LR\Filters::escapeHtmlText($person->login) /* line 64 */ ?>. V miestnosti: <?php
+		echo LR\Filters::escapeHtmlText($room->title) /* line 64 */ ?></div>
+        <a class="ajax" id="refreshChat" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("refresh!")) ?>"></a>
+        <div id="middleScroll" class="container">
 
-                        <li><a  href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Message:default")) ?>"><span class="glyphicon glyphicon-envelope"></span>  Správy (0)</a></li>
+            <div class="panel-body">
+<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('obsah')) ?>"><?php $this->renderBlock('_obsah', $this->params) ?></div>            </div>              
 
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                                <span class="glyphicon glyphicon-cog"></span>  Možnosti</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Account:default")) ?>">Profil</a></li>
-                                <li><a href="#">Zmena hesla</a></li>         
-                            </ul>
-                        </li>
-                        <li><a href="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 57 */ ?>/sign/default"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
+        </div>    
 
-                    
-
-    <div id='main_panel' class="container-fluid">
-
-        <div class="container">
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Panel heading without title</div>
-                    <div class="panel-body">
-                        <div class="container">
-                            <div class="row message-bubble">
-                                <p class="text-muted">Matt Townsen</p>
-                                <span>Why is yo shit so broke?</span>
-                            </div>
-                            <div class="row message-bubble">
-                                <p class="text-muted">Matt Townsen</p>
-                                <p>It Isn't'</p>
-                            </div>
-                            <div class="row message-bubble">
-                                <p class="text-muted">Matt Townsen</p>
-                                <p>Umm yes it is</p>
-                            </div>
-                            <div class="row message-bubble">
-                                <p class="text-muted">Matt Townsen</p>
-                                <p>Test message</p>
-                            </div>
-                        </div>
-                        <div class="panel-footer">
-                            <div class="input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">Send</button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+    </div>
+    <div id="panel-footer">
+        <div style="display: inline" class="input-group">
+<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('sprava')) ?>"><?php $this->renderBlock('_sprava', $this->params) ?></div>        </div> 
     </div>
 </body>
 
-<footer id='foot'> © 2017 By: Marek Unčík, For: Webové Aplikace (LS 2017)</footer>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    setInterval(function () {
+        $("#refreshChat").click();
+    }, 1000);
+
+</script>
 <?php
+	}
+
+
+	function blockObsah($_args)
+	{
+		extract($_args);
+		$this->global->snippetDriver->enter("obsah", "static");
+?>
+                    <div class="container">
+
+<?php
+		$iterations = 0;
+		foreach ($messages as $message) {
+?>
+                            <div class="row message-bubble">
+                                <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 74 */ ?> || <?php
+			echo LR\Filters::escapeHtmlText($message->login) /* line 74 */ ?></p>
+                                <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 75 */ ?></span>
+                            </div>
+<?php
+			$iterations++;
+		}
+?>
+                    </div>
+<?php
+		$this->global->snippetDriver->leave();
+		
+	}
+
+
+	function blockSprava($_args)
+	{
+		extract($_args);
+		$this->global->snippetDriver->enter("sprava", "static");
+		/* line 88 */ $_tmp = $this->global->uiControl->getComponent("sendMessageForm");
+		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
+		$_tmp->render();
+		$this->global->snippetDriver->leave();
+		
 	}
 
 }
