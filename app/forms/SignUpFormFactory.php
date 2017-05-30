@@ -34,35 +34,39 @@ class SignUpFormFactory {
         $form->addText('login')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
+                ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Prihlasovacie meno')
                 ->setRequired('Prosím, zadajte prihlasovacie meno.')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako %d znaky.', 2)
-                ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako %d znakov.', 15)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
+                ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako %d znakov.', 15);
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
 
         $form->addPassword('passwordFirst')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
+                ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Heslo')
                 ->setRequired('Prosím, zadajte heslo.')
-                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 6)
-                ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
+                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 4)
+                ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20);
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
 
         $form->addPassword('passwordVerify')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
+                ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Heslo znova')
                 ->setRequired('Prosím, zadajte heslo znovu.')
-                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 6)
+                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 4)
                 ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20)
                 ->addConditionOn($form['passwordFirst'], Form::VALID)
-                ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['passwordFirst'])
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
+                ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['passwordFirst']);
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
 
         $form->addEmail('email')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
+                ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'email')
                 ->setRequired('Prosím, zadajte e-mailovú adresu.')
                 ->setEmptyValue('@')
@@ -73,19 +77,21 @@ class SignUpFormFactory {
         $form->addText('name')
                 ->setRequired(FALSE)
                 ->setAttribute('class', 'form-controla')
+                ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Meno')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako 2 znaky.', 2)
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako 25 znakov.', 15)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+              //  ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
                 ->setHtmlId('input');
 
         $form->addText('surname')
                 ->setRequired(FALSE)
                 ->setAttribute('class', 'form-controla')
+                ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Priezvisko')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako 2 znaky.', 2)
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako 25 znakov.', 15)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+              //  ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
                 ->setHtmlId('input');
 
         $sex = [

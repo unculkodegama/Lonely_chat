@@ -55,7 +55,7 @@ class AccountPresenter extends BasePresenter {
                 ->setAttribute('placeholder', 'Vyplnte meno')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako 2 znaky.', 2)
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako 25 znakov.', 15)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
                 ->setHtmlId('input');
 
         $form->addText('surname')
@@ -64,7 +64,7 @@ class AccountPresenter extends BasePresenter {
                 ->setAttribute('placeholder', 'Vyplnte priezvisko')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako 2 znaky.', 2)
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako 25 znakov.', 15)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
                 ->setHtmlId('input');
 
         $sex = [
@@ -98,20 +98,20 @@ class AccountPresenter extends BasePresenter {
                 ->setAttribute('class', 'form-controla')
                 ->setAttribute('placeholder', 'Nové heslo')
                 ->setRequired('Prosím, zadajte nové heslo.')
-                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 6)
-                ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
+                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 4)
+                ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20);
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
 
         $form->addPassword('passwordVerify')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
                 ->setAttribute('placeholder', 'Nové heslo znova')
                 ->setRequired('Prosím, zadajte nové heslo znovu.')
-                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 6)
+                ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 4)
                 ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20)
                 ->addConditionOn($form['passwordFirst'], Form::VALID)
-                ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['passwordFirst'])
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
+                ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['passwordFirst']);
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
 
         $form->addSubmit('send', 'Uložiť')
                 ->setHtmlId('Button')

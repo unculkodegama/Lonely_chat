@@ -9,10 +9,10 @@ use App\Model;
  * Base presenter for all application presenters.
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter {
-
+/*
     protected function startup() {
         parent::startup();
-/*
+
         $acl = new Model\ACLModel();
         $ctrl = strtolower($this->name);
         $act = strtolower($this->action);
@@ -31,8 +31,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
                 $this->redirect('Basepage:default');
             }
         }
-   */ 
+   
   }
- 
+ */
 
 }

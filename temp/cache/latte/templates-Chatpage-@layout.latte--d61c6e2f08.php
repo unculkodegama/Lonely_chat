@@ -131,16 +131,11 @@ class Templated61c6e2f08 extends Latte\Runtime\Template
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
         <script type="text/javascript" src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 62 */ ?>/js/nette.ajax.js"></script>
-        <script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 63 */ ?>/js/main.js"></script>
-
-        <script>
-            $(".ref").click(function () {
-                $.nette.ajax({
-                type: 'GET',
-                        url: 'chatpage/?do=refresh'});
-                console.log('ahooo');
-            });
-        </script>
+        
+        <script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 64 */ ?>/js/jquery.min.js"></script>
+        <
+        <script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 66 */ ?>/js/nette.ajax.js"></script> 
+        <script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 67 */ ?>/js/main.js"></script>
 <?php
 	}
 

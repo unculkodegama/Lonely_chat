@@ -60,16 +60,11 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
         <script type="text/javascript" src="{$basePath}/js/nette.ajax.js"></script>
+        
+        <script src="{$basePath}/js/jquery.min.js"></script>
+        <
+        <script src="{$basePath}/js/nette.ajax.js"></script> {* Nette Ajax depens on jQuery *}
         <script src="{$basePath}/js/main.js"></script>
-
-        <script>
-            $(".ref").click(function () {
-                $.nette.ajax({
-                type: 'GET',
-                        url: 'chatpage/?do=refresh'});
-                console.log('ahooo');
-            });
-        </script>
         {/block}
 
     </body>

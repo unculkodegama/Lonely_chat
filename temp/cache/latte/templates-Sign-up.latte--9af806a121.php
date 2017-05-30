@@ -52,7 +52,7 @@ class Template9af806a121 extends Latte\Runtime\Template
     }
 
     #header_nadpis {
-        position: absolute;
+        position: fixed;
         top: 5%;
         left: 50%;
         transform: translate(-45%, -50%);
@@ -82,6 +82,7 @@ class Template9af806a121 extends Latte\Runtime\Template
 <body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 35 */ ?>/images/obr1.JPG")'>
     <div id="header_nadpis">
         <h2 id="nadpis_up">Lonely Road.</h2>
+        <!-- <a href="<?php echo LR\Filters::escapeHtmlComment($this->global->uiControl->link("Sign:default")) ?>"><p> Už ste zaregistrovaný? </p></a> -->
     </div>    
 
     <div id='div_input'>
@@ -89,7 +90,7 @@ class Template9af806a121 extends Latte\Runtime\Template
             <h3 id="podnadpis_up">Registrácia</h3>
             
 <?php
-		/* line 44 */ $_tmp = $this->global->uiControl->getComponent("signUpForm");
+		/* line 45 */ $_tmp = $this->global->uiControl->getComponent("signUpForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
 ?>

@@ -8,15 +8,15 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 	public $blocks = [
 		'head' => 'blockHead',
 		'content' => 'blockContent',
-		'_obsah' => 'blockObsah',
-		'_sprava' => 'blockSprava',
+		'_list' => 'blockList',
+		'_form' => 'blockForm',
 	];
 
 	public $blockTypes = [
 		'head' => 'html',
 		'content' => 'html',
-		'_obsah' => 'html',
-		'_sprava' => 'html',
+		'_list' => 'html',
+		'_form' => 'html',
 	];
 
 
@@ -116,64 +116,57 @@ class Template4865c60dc8 extends Latte\Runtime\Template
     <div id="chatPanelMain">
         <div class="panel-heading">Chatuješ ako: <?php echo LR\Filters::escapeHtmlText($person->login) /* line 64 */ ?>. V miestnosti: <?php
 		echo LR\Filters::escapeHtmlText($room->title) /* line 64 */ ?></div>
-        <a class="ajax" id="refreshChat" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("refresh!")) ?>"></a>
+        
         <div id="middleScroll" class="container">
 
             <div class="panel-body">
-<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('obsah')) ?>"><?php $this->renderBlock('_obsah', $this->params) ?></div>            </div>              
+<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('list')) ?>"><?php $this->renderBlock('_list', $this->params) ?></div>                </div>
+
+            </div>              
 
         </div>    
 
-    </div>
-    <div id="panel-footer">
-        <div style="display: inline" class="input-group">
-<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('sprava')) ?>"><?php $this->renderBlock('_sprava', $this->params) ?></div>        </div> 
+
+        <div style="display: inline; width: 100%" class="input-group">
+<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('form')) ?>"><?php $this->renderBlock('_form', $this->params) ?></div>        </div> 
     </div>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script type="text/javascript">
-    setInterval(function () {
-        $("#refreshChat").click();
-    }, 1000);
-
-</script>
 <?php
 	}
 
 
-	function blockObsah($_args)
+	function blockList($_args)
 	{
 		extract($_args);
-		$this->global->snippetDriver->enter("obsah", "static");
+		$this->global->snippetDriver->enter("list", "static");
 ?>
-                    <div class="container">
-
+                <div class="container">
+                    
 <?php
 		$iterations = 0;
 		foreach ($messages as $message) {
 ?>
-                            <div class="row message-bubble">
-                                <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 74 */ ?> || <?php
-			echo LR\Filters::escapeHtmlText($message->login) /* line 74 */ ?></p>
-                                <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 75 */ ?></span>
-                            </div>
+                            
+                                <div class="row message-bubble">
+                                    <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 75 */ ?> || <?php
+			echo LR\Filters::escapeHtmlText($message->login) /* line 75 */ ?></p>
+                                    <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 76 */ ?></span>
+                                </div>
+                            
 <?php
 			$iterations++;
 		}
-?>
-                    </div>
-<?php
 		$this->global->snippetDriver->leave();
 		
 	}
 
 
-	function blockSprava($_args)
+	function blockForm($_args)
 	{
 		extract($_args);
-		$this->global->snippetDriver->enter("sprava", "static");
-		/* line 88 */ $_tmp = $this->global->uiControl->getComponent("sendMessageForm");
+		$this->global->snippetDriver->enter("form", "static");
+		/* line 90 */ $_tmp = $this->global->uiControl->getComponent("sendMessageForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
 		$this->global->snippetDriver->leave();

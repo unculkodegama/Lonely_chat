@@ -36,8 +36,18 @@ class Container_f88c32e7fc extends Nette\DI\Container
 			'App\Forms\FormFactory' => [1 => ['25_App_Forms_FormFactory']],
 			'App\Forms\SignInFormFactory' => [1 => ['26_App_Forms_SignInFormFactory']],
 			'App\Forms\SignUpFormFactory' => [1 => ['27_App_Forms_SignUpFormFactory']],
-			'Nette\Security\IAuthenticator' => [1 => ['28_App_Model_UserManager']],
-			'App\Model\UserManager' => [1 => ['28_App_Model_UserManager']],
+			'Nette\Object' => [
+				1 => [
+					'28_App_Model_AccountModel',
+					'29_App_Model_BasepageModel',
+					'30_App_Model_ChatpageModel',
+				],
+			],
+			'App\Model\AccountModel' => [1 => ['28_App_Model_AccountModel']],
+			'App\Model\BasepageModel' => [1 => ['29_App_Model_BasepageModel']],
+			'App\Model\ChatpageModel' => [1 => ['30_App_Model_ChatpageModel']],
+			'Nette\Security\IAuthenticator' => [1 => ['31_App_Model_UserManager']],
+			'App\Model\UserManager' => [1 => ['31_App_Model_UserManager']],
 			'App\Presenters\BasePresenter' => [
 				1 => [
 					'application.1',
@@ -191,7 +201,7 @@ class Container_f88c32e7fc extends Nette\DI\Container
 			'App\Presenters\ErrorPresenter' => [1 => ['application.5']],
 			'App\Presenters\HomepagePresenter' => [1 => ['application.6']],
 			'App\Presenters\MessagePresenter' => [1 => ['application.7']],
-			'App\Presenters\SignupPresenter' => [1 => ['application.8']],
+			'App\Presenters\SignPresenter' => [1 => ['application.8']],
 			'NetteModule\ErrorPresenter' => [1 => ['application.9']],
 			'NetteModule\MicroPresenter' => [1 => ['application.10']],
 			'Nette\DI\Container' => [1 => ['container']],
@@ -200,7 +210,10 @@ class Container_f88c32e7fc extends Nette\DI\Container
 			'25_App_Forms_FormFactory' => 'App\Forms\FormFactory',
 			'26_App_Forms_SignInFormFactory' => 'App\Forms\SignInFormFactory',
 			'27_App_Forms_SignUpFormFactory' => 'App\Forms\SignUpFormFactory',
-			'28_App_Model_UserManager' => 'App\Model\UserManager',
+			'28_App_Model_AccountModel' => 'App\Model\AccountModel',
+			'29_App_Model_BasepageModel' => 'App\Model\BasepageModel',
+			'30_App_Model_ChatpageModel' => 'App\Model\ChatpageModel',
+			'31_App_Model_UserManager' => 'App\Model\UserManager',
 			'application.1' => 'App\Presenters\AccountPresenter',
 			'application.10' => 'NetteModule\MicroPresenter',
 			'application.2' => 'App\Presenters\BasepagePresenter',
@@ -209,7 +222,7 @@ class Container_f88c32e7fc extends Nette\DI\Container
 			'application.5' => 'App\Presenters\ErrorPresenter',
 			'application.6' => 'App\Presenters\HomepagePresenter',
 			'application.7' => 'App\Presenters\MessagePresenter',
-			'application.8' => 'App\Presenters\SignupPresenter',
+			'application.8' => 'App\Presenters\SignPresenter',
 			'application.9' => 'NetteModule\ErrorPresenter',
 			'application.application' => 'Nette\Application\Application',
 			'application.linkGenerator' => 'Nette\Application\LinkGenerator',
@@ -259,7 +272,7 @@ class Container_f88c32e7fc extends Nette\DI\Container
 				'application.5' => 'App\Presenters\ErrorPresenter',
 				'application.6' => 'App\Presenters\HomepagePresenter',
 				'application.7' => 'App\Presenters\MessagePresenter',
-				'application.8' => 'App\Presenters\SignupPresenter',
+				'application.8' => 'App\Presenters\SignPresenter',
 				'application.9' => 'NetteModule\ErrorPresenter',
 			],
 		],
@@ -318,12 +331,33 @@ class Container_f88c32e7fc extends Nette\DI\Container
 	public function createService__27_App_Forms_SignUpFormFactory(): App\Forms\SignUpFormFactory
 	{
 		$service = new App\Forms\SignUpFormFactory($this->getService('25_App_Forms_FormFactory'),
-			$this->getService('28_App_Model_UserManager'));
+			$this->getService('31_App_Model_UserManager'));
 		return $service;
 	}
 
 
-	public function createService__28_App_Model_UserManager(): App\Model\UserManager
+	public function createService__28_App_Model_AccountModel(): App\Model\AccountModel
+	{
+		$service = new App\Model\AccountModel($this->getService('database.default.connection'));
+		return $service;
+	}
+
+
+	public function createService__29_App_Model_BasepageModel(): App\Model\BasepageModel
+	{
+		$service = new App\Model\BasepageModel($this->getService('database.default.connection'));
+		return $service;
+	}
+
+
+	public function createService__30_App_Model_ChatpageModel(): App\Model\ChatpageModel
+	{
+		$service = new App\Model\ChatpageModel($this->getService('database.default.context'));
+		return $service;
+	}
+
+
+	public function createService__31_App_Model_UserManager(): App\Model\UserManager
 	{
 		$service = new App\Model\UserManager($this->getService('database.default.context'));
 		return $service;
@@ -332,7 +366,7 @@ class Container_f88c32e7fc extends Nette\DI\Container
 
 	public function createServiceApplication__1(): App\Presenters\AccountPresenter
 	{
-		$service = new App\Presenters\AccountPresenter;
+		$service = new App\Presenters\AccountPresenter($this->getService('28_App_Model_AccountModel'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'),
 			$this->getService('routing.router'), $this->getService('http.request'),
 			$this->getService('http.response'), $this->getService('session.session'),
@@ -352,7 +386,7 @@ class Container_f88c32e7fc extends Nette\DI\Container
 
 	public function createServiceApplication__2(): App\Presenters\BasepagePresenter
 	{
-		$service = new App\Presenters\BasepagePresenter;
+		$service = new App\Presenters\BasepagePresenter($this->getService('29_App_Model_BasepageModel'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'),
 			$this->getService('routing.router'), $this->getService('http.request'),
 			$this->getService('http.response'), $this->getService('session.session'),
@@ -364,7 +398,7 @@ class Container_f88c32e7fc extends Nette\DI\Container
 
 	public function createServiceApplication__3(): App\Presenters\ChatpagePresenter
 	{
-		$service = new App\Presenters\ChatpagePresenter;
+		$service = new App\Presenters\ChatpagePresenter($this->getService('30_App_Model_ChatpageModel'));
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'),
 			$this->getService('routing.router'), $this->getService('http.request'),
 			$this->getService('http.response'), $this->getService('session.session'),
@@ -417,9 +451,9 @@ class Container_f88c32e7fc extends Nette\DI\Container
 	}
 
 
-	public function createServiceApplication__8(): App\Presenters\SignupPresenter
+	public function createServiceApplication__8(): App\Presenters\SignPresenter
 	{
-		$service = new App\Presenters\SignupPresenter;
+		$service = new App\Presenters\SignPresenter;
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'),
 			$this->getService('routing.router'), $this->getService('http.request'),
 			$this->getService('http.response'), $this->getService('session.session'),
@@ -501,8 +535,8 @@ class Container_f88c32e7fc extends Nette\DI\Container
 
 	public function createServiceDatabase__default__connection(): Nette\Database\Connection
 	{
-		$service = new Nette\Database\Connection('mysql:host=127.0.0.1;dbname=test', NULL, NULL,
-			['lazy' => TRUE]);
+		$service = new Nette\Database\Connection('mysql:host=127.0.0.1;dbname=onlychat', 'root',
+			NULL, ['lazy' => TRUE]);
 		$this->getService('tracy.blueScreen')->addPanel('Nette\Bridges\DatabaseTracy\ConnectionPanel::renderException');
 		Nette\Database\Helpers::createDebugPanel($service, TRUE, 'default');
 		return $service;
@@ -620,7 +654,7 @@ class Container_f88c32e7fc extends Nette\DI\Container
 
 	public function createServiceSecurity__user(): Nette\Security\User
 	{
-		$service = new Nette\Security\User($this->getService('security.userStorage'), $this->getService('28_App_Model_UserManager'));
+		$service = new Nette\Security\User($this->getService('security.userStorage'), $this->getService('31_App_Model_UserManager'));
 		$this->getService('tracy.bar')->addPanel(new Nette\Bridges\SecurityTracy\UserPanel($service));
 		return $service;
 	}

@@ -5,7 +5,7 @@ namespace App\Model;
 use Nette;
 
 class ACLModel {
-
+/*
     private $acl;
 
     public function __construct() {
@@ -33,5 +33,5 @@ class ACLModel {
     function isAllowed($role, $res, $priv) {
         return $this->acl->isAllowed($role, $res, $priv);
     }
-
+*/
 }

@@ -25,13 +25,13 @@ class BasepagePresenter extends BasePresenter {
         $form = new Form();
         $form->addText('title', 'Názov miestnosti:')
                 ->setRequired('Musíte zadať názov miestnosti.')
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako %d znaky.', 2)
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako %d znakov.', 40);
 
         $form->addText('description', 'Krátky popis:')
                 ->setRequired(FALSE)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako %d znaky.', 2)
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako %d znakov.', 70);
 
@@ -66,13 +66,13 @@ class BasepagePresenter extends BasePresenter {
         
         $form->addText('title', 'Názov miestnosti:')
                 ->setRequired('Musíte zadať názov miestnosti.')
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako %d znaky.', 2)
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako %d znakov.', 35);
 
         $form->addText('description', 'Krátky popis:')
                 ->setRequired(FALSE)
-                ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+               // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
                 ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako %d znaky.', 2)
                 ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako %d znakov.', 35);
 

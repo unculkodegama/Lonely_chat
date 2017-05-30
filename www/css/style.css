@@ -65,6 +65,7 @@
     font-size: 210%;
     margin-bottom: 7%;
     padding-bottom: 1%;
+    margin-left: 6.5%;
     font-weight: 500;
 }
 
@@ -217,7 +218,8 @@
     color: #ffffff;
     background: rgba(7,12,104,0.2);
     border: 3px solid #ffffff;
-    padding: 2%;
+    padding: 4%;
+    margin: 4%;
     width: 100%;
     font-size: large;
     text-align: center;
@@ -227,7 +229,7 @@
         border-color 0.1s ease-out;
 }
 
-#Button:hover, #Button:active, #input:active, #input:hover {
+#Button:hover, #Button:active, #Button:focus, #input:active, #input:focus, #input:hover {
     background-color: #ffffff;
     border-color: #070c68;
     color: #000000;
@@ -250,12 +252,13 @@ label {
     font-size: 145%;
     text-align: center;
     font-weight: bold;
+    margin-left: 4%;
     padding-left: 16%;
 }
 
 /* nastavenie vzhladu label pre výber pohlavia */
 label:hover {
-    color: black;  
+    color: #d0d6e0;  
     cursor: pointer;
     font-size: 145%;
     text-align: center;

@@ -62,40 +62,35 @@
 
     <div id="chatPanelMain">
         <div class="panel-heading">Chatuješ ako: {$person->login}. V miestnosti: {$room->title}</div>
-        <a class="ajax" id="refreshChat" n:href="refresh!"></a>
+        
         <div id="middleScroll" class="container">
 
             <div class="panel-body">
-                {snippet obsah}
-                    <div class="container">
-
+                {snippet list}
+                <div class="container">
+                    
                         {foreach $messages as $message}
-                            <div class="row message-bubble">
-                                <p class="text-muted">{$message->time} || {$message->login}</p>
-                                <span>{$message->text}</span>
-                            </div>
+                            
+                                <div class="row message-bubble">
+                                    <p class="text-muted">{$message->time} || {$message->login}</p>
+                                    <span>{$message->text}</span>
+                                </div>
+                            
                         {/foreach}
-                    </div>
-                {/snippet}
+                {/snippet}    
+                </div>
+
             </div>              
 
         </div>    
 
-    </div>
-    <div id="panel-footer">
-        <div style="display: inline" class="input-group">
-            {snippet sprava}
-                {control sendMessageForm}
+
+        <div style="display: inline; width: 100%" class="input-group">
+            {snippet form} 
+            {control sendMessageForm}
             {/snippet}
         </div> 
     </div>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script type="text/javascript">
-    setInterval(function () {
-        $("#refreshChat").click();
-    }, 1000);
-
-</script>
 {/block} 
