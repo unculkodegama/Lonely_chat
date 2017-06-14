@@ -58,26 +58,58 @@
 
 {block content}
 
+<script type="text/javascript">
+    setInterval(function () {
+        $("#refreshBoard").click();
+    }, 1000);
+
+</script>
+
+<a class="ajax" id="refreshBoard" n:href="refreshBoard!"></a>
+
 <div class="container" style="display: block">
 
     <div id="chatPanelMain">
-        <div class="panel-heading">Chatuješ ako: {$person->login}. V miestnosti: {$room->title}</div>
-        
+        <div class="panel-heading" style="display: block; width: 100%">
+            Chatuješ ako: 
+            <p style="font-size: medium; display: inline">{$person->login}</p> |=| 
+            Miestnosť: 
+            <p style="font-size: medium; display: inline">{$room->title}</p> |=|
+            Správce: 
+            <p style="font-size: medium; display: inline">{$owner->login}</p> |=|
+            Počet četujúcich:
+            <p style="font-size: medium; display: inline">{$count->count}</p>
+            <div style="display: inline">
+                {snippet lockedRoom}
+                    {if $room->locked == 'f' && $owner->id_users == $person->id_users}
+                        <a style="display: inline" class="ajax" n:href="lockRoom! $room->id_rooms"><button style="display: inline" class="btn-outlined btn-primary">Zamknúť</button></a>
+                    {elseif $room->locked == 't' && $owner->id_users == $person->id_users}
+                        <a style="display: inline" class="ajax" n:href="unlockRoom! $room->id_rooms"><button style="display: inline" class="btn-outlined btn-info">Odomnknúť</button></a>                   
+                    {/if}
+                {/snippet}
+                {snippet leaveRoom}
+
+                    <a style="display: inline" class="ajax" n:href="quitRoom! $room->id_rooms, $person->id_users"><button class="btn-outlined btn-primary">Odísť</button></a>
+                {/snippet}
+            </div>
+
+        </div>
+
         <div id="middleScroll" class="container">
 
             <div class="panel-body">
                 {snippet list}
-                <div class="container">
-                    
+                    <div class="container">
+
                         {foreach $messages as $message}
-                            
-                                <div class="row message-bubble">
-                                    <p class="text-muted">{$message->time} || {$message->login}</p>
-                                    <span>{$message->text}</span>
-                                </div>
-                            
+
+                            <div class="row message-bubble">
+                                <p class="text-muted">{$message->time} || {$message->login}</p>
+                                <span>{$message->text}</span>
+                            </div>
+
                         {/foreach}
-                {/snippet}    
+                    {/snippet}    
                 </div>
 
             </div>              
@@ -87,7 +119,7 @@
 
         <div style="display: inline; width: 100%" class="input-group">
             {snippet form} 
-            {control sendMessageForm}
+                {control sendMessageForm}
             {/snippet}
         </div> 
     </div>

@@ -1,70 +1,71 @@
 {**
  * @param string   $basePath web base path
  * @param array    $flashes  flash messages
- *}
+*}
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Lonely road.</title>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="{$basePath}/css/style.css">
-	{block head}{/block}
-</head>
-
-<body id="body_image" style='background-image: url("{$basePath}/images/obr1.JPG")'>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-        
-        <!-- Menu -->
-    <header>
-        <div class="menu">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <h1 id="nadpisLogo"><a id="link_main" n:href="Basepage:default">Lonely Road.</a></h1>
-                </div>
-                <div>
-                    <ul class="nav navbar-nav navbar-right">
-                        
-                        
-                        
-                        <li><a n:href="Message:default" ><span class="glyphicon glyphicon-envelope"></span>  Správy (0)</a></li>
-
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                                <span class="glyphicon glyphicon-cog"></span>  Možnosti</a>
-                            <ul class="dropdown-menu">
-                                <li><a n:href="Account:default">Profil</a></li>
-                                <li><a n:href="Account:password">Zmena hesla</a></li>
-                                    {* <li role="separator" class="divider"></li> *}          
-                            </ul>
-                        </li>
-                        <li><a href="{$basePath}/sign/out"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
-        
-	{include content}
-        
-        
-        
-        
-	{block scripts}
+    <head>
+        {block scripts}
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>        
-        <script src="/scripts/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>        
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
-	<script src="{$basePath}/js/main.js"></script>
-	{/block}
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
+        <script src="{$basePath}/js/nette.ajax.js"></script> {* Nette Ajax depens on jQuery *}
+        <script src="{$basePath}/js/main.js"></script>
+        {/block}
 
-</body>
+        <meta charset="utf-8">
+
+        <title>{ifset title}{include title|stripHtml} | {/ifset}Lonely road.</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{$basePath}/css/style.css">
+        {block head}{/block}
+    </head>
+
+    <body id="body_image" style='background-image: url("{$basePath}/images/obr1.JPG")'>
+
+        <!-- Menu -->
+        <header>
+            <div class="menu">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <h1 id="nadpisLogo"><a id="link_main" n:href="Basepage:default">Lonely Road.</a></h1>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                    <span class="glyphicon glyphicon-cog"></span>  Možnosti</a>
+                                <ul class="dropdown-menu">
+                                    <li><a n:href="Account:default">Profil</a></li>
+                                    <li><a n:href="Account:password">Zmena hesla</a></li>       
+                                </ul>
+                            </li>
+                            <li><a href="{$basePath}/sign/out"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {include content}
+
+        <!-- Flash message modal -->
+        <div class="modal" id="flashMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="loginmodal-container">
+                    <div class="modal-body">
+                        <div>Informácie boli upravené.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
 </html>

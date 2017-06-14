@@ -24,7 +24,11 @@ class AccountModel extends Nette\Object {
     public function getPerson($id) {
         return $this->db->query("SELECT * FROM users WHERE id_users = ?", $id)->fetch();
     }
-    
+    /*
+    public function getPersonPassword($id) {
+        return $this->db->query("SELECT password FROM users WHERE id_users = ?", $id)->fetch();
+    }
+    */
     public function insertPassword($pass,$id) {
         return $this->db->query("UPDATE users SET password = ? WHERE id_users = ?",Passwords::hash($pass),$id);
     }

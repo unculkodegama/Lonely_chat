@@ -7,10 +7,12 @@ class Template01f1d176b0 extends Latte\Runtime\Template
 {
 	public $blocks = [
 		'content' => 'blockContent',
+		'_editRoom' => 'blockEditRoom',
 	];
 
 	public $blockTypes = [
 		'content' => 'html',
+		'_editRoom' => 'html',
 	];
 
 
@@ -37,13 +39,20 @@ class Template01f1d176b0 extends Latte\Runtime\Template
 ?>
 
 <div id="divEditRoom">
+<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('editRoom')) ?>"><?php $this->renderBlock('_editRoom', $this->params) ?></div></div>
 <?php
-		/* line 6 */ $_tmp = $this->global->uiControl->getComponent("editRoomForm");
+	}
+
+
+	function blockEditRoom($_args)
+	{
+		extract($_args);
+		$this->global->snippetDriver->enter("editRoom", "static");
+		/* line 7 */ $_tmp = $this->global->uiControl->getComponent("editRoomForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
-?>
-</div>
-<?php
+		$this->global->snippetDriver->leave();
+		
 	}
 
 }

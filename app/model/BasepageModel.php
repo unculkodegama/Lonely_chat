@@ -21,8 +21,8 @@ class BasepageModel extends Nette\Object {
         date_default_timezone_set('Europe/Prague');
         $date = date('Y-m-d H:i:s');
 
-        return $this->db->query("INSERT INTO rooms (id_users, created, title, description, locked) "
-                        . "VALUES (?, ?, ?, ?, ?)", $userID, $date, $values['title'], $values['description'], 'f');
+        return $this->db->query("INSERT INTO rooms (id_users, created, last_active, title, description, locked) "
+                        . "VALUES (?, ?, ?, ?, ?, ?)", $userID, $date, $date, $values['title'], $values['description'], 'f');
     }
 
     function getRoom($id) {
@@ -38,13 +38,8 @@ class BasepageModel extends Nette\Object {
         return $this->db->query("DELETE FROM rooms "
                         . "WHERE id_rooms = ?", $id);
     }
-
-    function lockRoom($id) {
-        return $this->db->query('UPDATE rooms SET locked = ? WHERE id_rooms = ?', 't', $id);
+    
+    function findOutIfIsMember($id) {
+        return $this->db->query("SELECT * FROM in_room WHERE id_users = ?", $id)->fetch();
     }
-
-    function unlockRoom($id) {
-        return $this->db->query('UPDATE rooms SET locked = ? WHERE id_rooms = ?', 'f', $id);
-    }
-
 }

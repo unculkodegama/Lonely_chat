@@ -65,9 +65,6 @@ class Template9af806a121 extends Latte\Runtime\Template
         padding-bottom: 0px;
     }
 
-   
-
-   
 </style>   
 
 <?php
@@ -79,18 +76,19 @@ class Template9af806a121 extends Latte\Runtime\Template
 		extract($_args);
 ?>
 
-<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 35 */ ?>/images/obr1.JPG")'>
+<body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 32 */ ?>/images/obr1.JPG")'>
     <div id="header_nadpis">
         <h2 id="nadpis_up">Lonely Road.</h2>
-        <!-- <a href="<?php echo LR\Filters::escapeHtmlComment($this->global->uiControl->link("Sign:default")) ?>"><p> Už ste zaregistrovaný? </p></a> -->
+
     </div>    
 
     <div id='div_input'>
         <div id='blok'>
             <h3 id="podnadpis_up">Registrácia</h3>
-            
+            <p style="color: black; font-size: medium">Už ste zaregistrovaný?<a style="color: black; font-size: medium" href="<?php
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Sign:default")) ?>"> Prihláste sa.</a></p>
 <?php
-		/* line 45 */ $_tmp = $this->global->uiControl->getComponent("signUpForm");
+		/* line 42 */ $_tmp = $this->global->uiControl->getComponent("signUpForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
 ?>
@@ -99,6 +97,16 @@ class Template9af806a121 extends Latte\Runtime\Template
 </body>
 
 <footer id='foot'> © 2017 By: Marek Unčík, For: Webové Aplikace (LS 2017)</footer>
+
+<div class="modal" id="flashMessageSingUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <div class="modal-body">
+                <div>Informácie boli upravené.</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
 	}

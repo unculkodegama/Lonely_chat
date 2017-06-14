@@ -81,6 +81,11 @@
     z-index: 1;    
 }
 
+.nav > li > .pokus:focus {
+    background-color: rgb(44, 47, 81) !important;
+
+}
+
 /* nastavenie vzhladu a tagu v hornom menu */
 .menu  .navbar-nav > .active > a {
     background-color : #04A3ED;
@@ -218,18 +223,15 @@
     color: #ffffff;
     background: rgba(7,12,104,0.2);
     border: 3px solid #ffffff;
-    padding: 4%;
-    margin: 4%;
+    padding: 3%;
+    margin: 3%;
     width: 100%;
     font-size: large;
     text-align: center;
     font-weight: bold;
-    transition: color 0.1s ease-out,
-        background-color 0.1s ease-out,
-        border-color 0.1s ease-out;
 }
 
-#Button:hover, #Button:active, #Button:focus, #input:active, #input:focus, #input:hover {
+#Button:hover, #Button:active, #Button:focus, #input:active , #input:focus, #input:hover {
     background-color: #ffffff;
     border-color: #070c68;
     color: #000000;
@@ -246,19 +248,20 @@
     transform: translate(-50%, -50%);
 }
 
-label {
+#labelka {
     color: white;  
     cursor: pointer;
     font-size: 145%;
     text-align: center;
+    display: inline;
     font-weight: bold;
-    margin-left: 4%;
-    padding-left: 16%;
+    margin-left: 22%;
+    padding-left: 18%;
 }
 
 /* nastavenie vzhladu label pre výber pohlavia */
-label:hover {
-    color: #d0d6e0;  
+#labelka:hover {
+    color: #232b1a;  
     cursor: pointer;
     font-size: 145%;
     text-align: center;
@@ -278,7 +281,48 @@ label:hover {
     text-align:center;
     color: #000000;
     font-size: 150%;
-    margin-bottom: 7%;
+    margin-bottom: 1%;
     padding-bottom: 1%;
     font-weight: 500;
+}
+
+#podnadpis_upEnd {
+    font-family: "Century Gothic", sans-serif;
+    text-align:center;
+    color: #000000;
+    font-size: 190%;
+    margin-top: 0%;
+    margin-left: 20%;
+    margin-bottom: 0%;
+    padding-bottom: 1%;
+    margin-left: 6.5%;
+    font-weight: 500;
+}
+
+#labed { 
+    color: black;  
+    font-size: 125%;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 2%;
+    padding-left: 2%;
+    pointer-events: none;
+}
+
+/* button lock */
+.btn-outlined.btn-primary, .btn-outlined.btn-primary:hover,
+.btn-outlined.btn-primary :active {
+    border-radius: 0;
+    border: 3px solid #428bca;
+    color: #FFF;
+    background: #428bca;
+}
+
+/* button unlock */
+.btn-outlined.btn-info,
+.btn-outlined.btn-info:hover,
+.btn-outlined.btn-info:active {
+    background: #39b3d7;
+    border: 3px solid #5bc0de;
+    color: #FFF;
 }

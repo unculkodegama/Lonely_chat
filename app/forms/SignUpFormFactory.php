@@ -10,8 +10,6 @@ class SignUpFormFactory {
 
     use Nette\SmartObject;
 
-    const PASSWORD_MIN_LENGTH = 6;
-
     /** @var FormFactory */
     private $factory;
 
@@ -22,7 +20,7 @@ class SignUpFormFactory {
         $this->factory = $factory;
         $this->userManager = $userManager;
     }
-
+    
     /**
      * @return Form
      */
@@ -31,27 +29,29 @@ class SignUpFormFactory {
 
         $form->addProtection([$message = "There is something smelly around here!"], [$timeout = 600]);
 
-        $form->addText('login')
+        $form->addText('login', 'Login: ')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
                 ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Prihlasovacie meno')
                 ->setRequired('Prosím, zadajte prihlasovacie meno.')
-                ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako %d znaky.', 2)
-                ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako %d znakov.', 15);
+                ->addRule(Form::MIN_LENGTH, 'Login musí mať viac ako %d znaky.', 2)
+                ->addRule(Form::MAX_LENGTH, 'Login musí mať menej ako %d znakov.', 15)
+                ->getLabelPrototype()->setAttribute('id', 'labed');
                // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
 
-        $form->addPassword('passwordFirst')
+        $form->addPassword('passwordFirst', 'Heslo: ')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
                 ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Heslo')
                 ->setRequired('Prosím, zadajte heslo.')
                 ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 4)
-                ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20);
+                ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20)
+                ->getLabelPrototype()->setAttribute('id', 'labed');
                // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
 
-        $form->addPassword('passwordVerify')
+        $form->addPassword('passwordVerify', 'Heslo znova: ')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
                 ->setAttribute('autocomplete', 'off')
@@ -59,11 +59,11 @@ class SignUpFormFactory {
                 ->setRequired('Prosím, zadajte heslo znovu.')
                 ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znakov.', 4)
                 ->addRule(Form::MAX_LENGTH, 'Heslo nemôže presiahnuť %d znakov.', 20)
-                ->addConditionOn($form['passwordFirst'], Form::VALID)
-                ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['passwordFirst']);
+                ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['passwordFirst'])
+                ->getLabelPrototype()->setAttribute('id', 'labed');
                // ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$');
 
-        $form->addEmail('email')
+        $form->addEmail('email', 'E-mail: ')
                 ->setHtmlId('input')
                 ->setAttribute('class', 'form-controla')
                 ->setAttribute('autocomplete', 'off')
@@ -71,28 +71,31 @@ class SignUpFormFactory {
                 ->setRequired('Prosím, zadajte e-mailovú adresu.')
                 ->setEmptyValue('@')
                 ->addRule(Form::FILLED, 'Prosím, zadajte e-mailovú adresu.')
-                ->addCondition(Form::FILLED)
-                ->addRule(Form::EMAIL, 'Neplatná e-mailová adresa.');
+                ->addRule(Form::EMAIL, 'Neplatná e-mailová adresa.')
+                ->getLabelPrototype()->setAttribute('id', 'labed');
 
-        $form->addText('name')
+        $form->addText('name', 'Meno: ')
                 ->setRequired(FALSE)
                 ->setAttribute('class', 'form-controla')
                 ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Meno')
-                ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako 2 znaky.', 2)
-                ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako 25 znakov.', 15)
-              //  ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
-                ->setHtmlId('input');
+                ->setAttribute('id', 'input')
+                ->addRule(Form::MIN_LENGTH, 'Meno musí mať viac ako 2 znaky.', 2)
+                ->addRule(Form::MAX_LENGTH, 'Meno musí mať menej ako 15 znakov.', 15)
+                //->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
+                
+                ->getLabelPrototype()->setAttribute('id', 'labed');
 
-        $form->addText('surname')
+        $form->addText('surname', 'Priezvisko: ')
                 ->setRequired(FALSE)
                 ->setAttribute('class', 'form-controla')
-                ->setAttribute('autocomplete', 'off')
                 ->setAttribute('placeholder', 'Priezvisko')
-                ->addRule(Form::MIN_LENGTH, 'Musíte mať viac ako 2 znaky.', 2)
-                ->addRule(Form::MAX_LENGTH, 'Musíte mať menej ako 25 znakov.', 15)
+                ->setAttribute('autocomplete', 'off')   
+                ->setAttribute('id', 'input')
+                ->addRule(Form::MIN_LENGTH, 'Priezvisko musí mať viac ako 2 znaky.', 2)
+                ->addRule(Form::MAX_LENGTH, 'Priezvisko musí mať menej ako 15 znakov.', 15)
               //  ->addRule(Form::PATTERN, 'Musí obsahovať normálne znaky.', '^[a-zá-žA-ZÁ-Ž0-9\_\-\.\*]*$')
-                ->setHtmlId('input');
+                ->getLabelPrototype()->setAttribute('id', 'labed');
 
         $sex = [
             'm' => 'Muž',
@@ -101,8 +104,7 @@ class SignUpFormFactory {
 
         $form->addRadioList('gender', NULL, $sex)
                         ->setRequired(FALSE)
-                        ->getSeparatorPrototype()->setName(Null)
-                        ->getLabelPrototype()->class[] = 'radiolabel';
+                        ->getItemLabelPrototype()->setAttribute('id', 'labelka');
 
         $form->addSubmit('send', 'Zaregistrovať sa')
                 ->setHtmlId('Button')
@@ -113,7 +115,7 @@ class SignUpFormFactory {
 
                 $this->userManager->add($values->login, $values->email, $values->passwordVerify, $values->name, $values->surname, $values->gender);
             } catch (Model\DuplicateNameException $e) {
-                $form['login']->addError('Prihlasovacie meno je obsadené.');
+                $form->addError('Prihlasovacie meno je obsadené.');
                 return;
             }
             $onSuccess();
@@ -121,5 +123,4 @@ class SignUpFormFactory {
 
         return $form;
     }
-
 }

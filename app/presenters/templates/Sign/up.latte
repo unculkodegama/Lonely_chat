@@ -23,9 +23,6 @@
         padding-bottom: 0px;
     }
 
-   
-
-   
 </style>   
 
 {/block}
@@ -35,18 +32,28 @@
 <body id="body_image" style='background-image: url("{$basePath}/images/obr1.JPG")'>
     <div id="header_nadpis">
         <h2 id="nadpis_up">Lonely Road.</h2>
-        <!-- <a href="{link Sign:default}"><p> Už ste zaregistrovaný? </p></a> -->
+
     </div>    
 
     <div id='div_input'>
         <div id='blok'>
             <h3 id="podnadpis_up">Registrácia</h3>
-            
+            <p style="color: black; font-size: medium">Už ste zaregistrovaný?<a style="color: black; font-size: medium" href="{link Sign:default}"> Prihláste sa.</a></p>
             {control signUpForm}
         </div>
     </div>
 </body>
 
 <footer id='foot'> © 2017 By: Marek Unčík, For: Webové Aplikace (LS 2017)</footer>
+
+<div class="modal" id="flashMessageSingUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <div class="modal-body">
+                <div>Informácie boli upravené.</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {/block}
