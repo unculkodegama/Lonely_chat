@@ -130,20 +130,22 @@ class Template821ac16747 extends Latte\Runtime\Template
 <?php
 				if ($room->id_users == $user->id) {
 ?>
-
-                                            <form action="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Basepage:deleteRoom", [$room->id_rooms])) ?>" method="post" onsubmit="return confirm('Naozaj chcete miestnosť: <?php
-					echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeJs($room->title)) /* line 46 */ ?> vymazať?')">
+                                            <!--
+                                            <form action="{}" method="post" onsubmit="return confirm('Naozaj chcete miestnosť: <?php
+					echo LR\Filters::escapeHtmlComment($room->title) /* line 46 */ ?> vymazať?')">
                                                 <a href="" onClick="$(this).closest('form').submit()" class="ajax" id="spanSubmit"><span class="glyphicon glyphicon-remove-sign"></span></a>
                                             </form>
-
+                                            -->
+                                            <span id="spanSubmit" class="glyphicon glyphicon-user"></span>
+                                            
 <?php
 				}
 ?>
                                     </div>
 
-                                    <h3 style="border-top: #000 1px solid;"> <?php echo LR\Filters::escapeHtmlText($room->title) /* line 53 */ ?> </h3>
+                                    <h3 style="border-top: #000 1px solid;"> <?php echo LR\Filters::escapeHtmlText($room->title) /* line 55 */ ?> </h3>
 
-                                    <p id='popis' style="overflow: hidden;"> <?php echo LR\Filters::escapeHtmlText($room->description) /* line 55 */ ?> </p>
+                                    <p id='popis' style="overflow: hidden;"> <?php echo LR\Filters::escapeHtmlText($room->description) /* line 57 */ ?> </p>
                                 </div>
                                 </br>
 <?php
@@ -152,12 +154,12 @@ class Template821ac16747 extends Latte\Runtime\Template
                                     <span class="glyphicon glyphicon-lock"></span>
 <?php
 					if ($member != null) {
-						?>                                        <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default", [$room->id_rooms])) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
+						?>                                        <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("enterRoom!", [$room->id_rooms])) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
 <?php
 					}
 				}
 				if ($room->locked != 't') {
-					?>                                    <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Chatpage:default", [$room->id_rooms])) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
+					?>                                    <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("enterRoom!", [$room->id_rooms])) ?>"><button id='add_local_theme'> Vstúpiť </button></a>
 <?php
 				}
 				if ($room->id_users == $user->id) {
@@ -194,7 +196,7 @@ class Template821ac16747 extends Latte\Runtime\Template
 	{
 		extract($_args);
 		$this->global->snippetDriver->enter("newRoom", "static");
-		/* line 96 */ $_tmp = $this->global->uiControl->getComponent("newRoomForm");
+		/* line 98 */ $_tmp = $this->global->uiControl->getComponent("newRoomForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
 		$this->global->snippetDriver->leave();

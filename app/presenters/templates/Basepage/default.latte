@@ -42,11 +42,13 @@
                                     <div style="width: 100%;">
                                         <p style="float: left; margin-bottom: -1px"> {$room->created} </p>    
                                         {if $room->id_users == $user->id}
-
-                                            <form action="{link Basepage:deleteRoom $room->id_rooms}" method="post" onsubmit="return confirm('Naozaj chcete miestnosť: {$room->title} vymazať?')">
+                                            <!--
+                                            <form action="{}" method="post" onsubmit="return confirm('Naozaj chcete miestnosť: {$room->title} vymazať?')">
                                                 <a href="" onClick="$(this).closest('form').submit()" class="ajax" id="spanSubmit"><span class="glyphicon glyphicon-remove-sign"></span></a>
                                             </form>
-
+                                            -->
+                                            <span id="spanSubmit" class="glyphicon glyphicon-user"></span>
+                                            
                                         {/if}
                                     </div>
 
@@ -58,11 +60,11 @@
                                 {if $room->locked == 't'}
                                     <span class="glyphicon glyphicon-lock"></span>
                                     {if $member != null}
-                                        <a href="{link Chatpage:default $room->id_rooms}"><button id='add_local_theme'> Vstúpiť </button></a>
+                                        <a n:href="enterRoom! $room->id_rooms"><button id='add_local_theme'> Vstúpiť </button></a>
                                     {/if}
                                 {/if}
                                 {if $room->locked != 't'}
-                                    <a href="{link Chatpage:default $room->id_rooms}"><button id='add_local_theme'> Vstúpiť </button></a>
+                                    <a n:href="enterRoom! $room->id_rooms"><button id='add_local_theme'> Vstúpiť </button></a>
                                 {/if}
                                 {if $room->id_users == $user->id}
                                     <a href="{link Basepage:editRoom $room->id_rooms}"><button id='add_local_theme'> Upravit Miestnosť </button></a>

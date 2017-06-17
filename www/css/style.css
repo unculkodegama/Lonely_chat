@@ -326,3 +326,12 @@
     border: 3px solid #5bc0de;
     color: #FFF;
 }
+
+#snippet--leaveRoom {
+    display: inline-block;
+}
+
+#snippet--lockedRoom {
+    display: inline-block;  
+}
+

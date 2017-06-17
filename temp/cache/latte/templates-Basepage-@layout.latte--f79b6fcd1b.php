@@ -47,7 +47,7 @@ class Templatef79b6fcd1b extends Latte\Runtime\Template
 ?>
     </head>
 
-    <body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 30 */ ?>/images/obr1.JPG")'>
+    <body id="body_image" style='background-image: url("<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::escapeCss($basePath)) /* line 31 */ ?>/images/obr1.JPG")'>
 
         <!-- Menu -->
         <header>
@@ -69,7 +69,7 @@ class Templatef79b6fcd1b extends Latte\Runtime\Template
                                     <li><a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Account:password")) ?>">Zmena hesla</a></li>         
                                 </ul>
                             </li>
-                            <li><a href="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 52 */ ?>/sign/out"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
+                            <li><a href="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 53 */ ?>/sign/out"><span class="glyphicon glyphicon-log-in"></span>  Odhlásiť sa</a></li>
                         </ul>
                     </div>
                 </div>
@@ -125,6 +125,7 @@ class Templatef79b6fcd1b extends Latte\Runtime\Template
         <script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
         <script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 25 */ ?>/js/nette.ajax.js"></script> 
         <script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 26 */ ?>/js/main.js"></script>
+        <!-- Latest compiled and minified CSS -->
 <?php
 	}
 

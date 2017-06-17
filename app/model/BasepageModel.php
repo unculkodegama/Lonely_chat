@@ -42,4 +42,25 @@ class BasepageModel extends Nette\Object {
     function findOutIfIsMember($id) {
         return $this->db->query("SELECT * FROM in_room WHERE id_users = ?", $id)->fetch();
     }
+    
+    function todaysDate() {
+        date_default_timezone_set('Europe/Prague');
+        $date = date('Y-m-d H:i:s');
+        return $date;
+    }
+    
+    function getWasPersonInRoomBefore($idRoom, $idUser) {
+        return $this->db->query("SELECT * FROM in_room WHERE id_users = ? AND id_rooms = ?", $idUser, $idRoom)->fetch();
+    }
+    
+    function playerEnteredGame($idRoom, $idUser) {
+
+        $wasHe = $this->getWasPersonInRoomBefore($idRoom, $idUser);
+
+        if ($wasHe == NULL) {
+            return $this->db->query("INSERT INTO in_room (entered, id_rooms, id_users) VALUES (?, ?, ?)", $this->todaysDate(), $idRoom, $idUser);
+        } else {
+            return $this->db->query("UPDATE in_room SET entered = ? WHERE id_users = ? AND id_rooms = ?", $this->todaysDate(), $idUser, $idRoom);
+        }
+    }
 }

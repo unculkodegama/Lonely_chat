@@ -35,6 +35,11 @@
         background-color: white;
     }
 
+    .input-group {
+        display: inline;
+        width: 100%;
+    }
+
     #panel-footer {
         position: absolute;
         bottom: 0%;
@@ -43,14 +48,25 @@
         left: 5%;
     }
 
-    #usermsg {
-        border-radius: 0%; 
-        width: 93.64%;
+    #snippet--form {
+        display: inline;
+        width: 35%;
     }
 
-    #submitmsg {
-        border-radius: 0%; 
-        width: 6.36%;
+    #frm-sendMessageForm {
+        display: inline;
+        width: 35%;
+    }
+
+    #usermsg {
+        display: inline;
+        width: 100%;
+    }
+
+    #sendPersonalMsg {
+        margin-top: 1%;
+        width: 15%;
+        float: right;
     }
 
 </style>
@@ -61,11 +77,21 @@
 <script type="text/javascript">
     setInterval(function () {
         $("#refreshBoard").click();
-    }, 1000);
+    }, 10000);
 
+    $(document).on("click", ".open-AddBookDialog", function () {
+        var myBookId = $(this).data('id');
+        $(".modal-body #message_to").val(myBookId);
+    });
+
+    $(document).on("submit", "#newPersonal", function () {
+        setTimeout(function () {
+            $("#newPersonal").hide();
+        }, 1000);
+    });
 </script>
 
-<a class="ajax" id="refreshBoard" n:href="refreshBoard!"></a>
+<a class="ajax" id="refreshBoard" n:href="refreshBoard!  $room->id_rooms, $owner->id_users"></a>
 
 <div class="container" style="display: block">
 
@@ -79,7 +105,7 @@
             <p style="font-size: medium; display: inline">{$owner->login}</p> |=|
             Počet četujúcich:
             <p style="font-size: medium; display: inline">{$count->count}</p>
-            <div style="display: inline">
+            <div style="display: inline-block; float: right">
                 {snippet lockedRoom}
                     {if $room->locked == 'f' && $owner->id_users == $person->id_users}
                         <a style="display: inline" class="ajax" n:href="lockRoom! $room->id_rooms"><button style="display: inline" class="btn-outlined btn-primary">Zamknúť</button></a>
@@ -87,10 +113,14 @@
                         <a style="display: inline" class="ajax" n:href="unlockRoom! $room->id_rooms"><button style="display: inline" class="btn-outlined btn-info">Odomnknúť</button></a>                   
                     {/if}
                 {/snippet}
-                {snippet leaveRoom}
 
+                {snippet leaveRoom}
                     <a style="display: inline" class="ajax" n:href="quitRoom! $room->id_rooms, $person->id_users"><button class="btn-outlined btn-primary">Odísť</button></a>
                 {/snippet}
+
+                {if $owner->id_users == $person->id_users}
+                    <a style="display: inline" class="ajax" n:href="deleteRoom! $room->id_rooms"><button class="btn-outlined btn-primary">Vymazať</button></a>
+                {/if}    
             </div>
 
         </div>
@@ -104,7 +134,11 @@
                         {foreach $messages as $message}
 
                             <div class="row message-bubble">
-                                <p class="text-muted">{$message->time} || {$message->login}</p>
+                                <p class="text-muted">{$message->time} || {$message->login} 
+                                    <a href="" data-id="{$message->id_users}" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </a>
+                                </p>
                                 <span>{$message->text}</span>
                             </div>
 
@@ -117,12 +151,36 @@
         </div>    
 
 
-        <div style="display: inline; width: 100%" class="input-group">
+        <div style=" width: 100%" class="input-group">
             {snippet form} 
                 {control sendMessageForm}
             {/snippet}
         </div> 
     </div>
 </body>
+
+<!-- New Personal Message -->
+<div class="modal" id="newPersonal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h3 class="modal-title" id="myModalLabel">Súkromná zpráva</h3>
+            </div>
+            <div class="modal-body" style="height: 150%">
+                {snippet zprava}           
+                    {form personalMessage}
+                        {input text class => 'form-control'}
+                        {input send class => 'btn btn-success btn-block', id => 'sendPersonalMsg'}
+
+                    {/form}
+                {/snippet}
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
 
 {/block} 

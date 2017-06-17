@@ -105,15 +105,14 @@ class BasepagePresenter extends BasePresenter {
         $form->setDefaults($this->roomData);
         return $form;
     }
-
-    function actionDeleteRoom($id) {
-        $this->roomData = $this->model->getRoom($id);
-        if ($this->roomData->id_users != $this->getUser()->id) {
-            $this->flashMessage("Ups...Snažís sa dostať tam, kam nemáš! Preč s tebou!");
+    
+    function handleEnterRoom($id) {
+        
+        if($this->model->getRoom($id) != null) {
+        $this->model->playerEnteredGame($id, $this->getUser()->id);
+        $this->redirect("Chatpage:default", $id);
         } else {
-              
-            $this->model->deleteRoom($id);
-            $this->flashMessage('Miestnosť bola vymazaná.');
+            $this->redirect('Basepage:default');
         }
     }
 

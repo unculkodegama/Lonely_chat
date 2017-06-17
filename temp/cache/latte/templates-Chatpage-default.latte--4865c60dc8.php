@@ -12,6 +12,7 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 		'_leaveRoom' => 'blockLeaveRoom',
 		'_list' => 'blockList',
 		'_form' => 'blockForm',
+		'_zprava' => 'blockZprava',
 	];
 
 	public $blockTypes = [
@@ -21,6 +22,7 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 		'_leaveRoom' => 'html',
 		'_list' => 'html',
 		'_form' => 'html',
+		'_zprava' => 'html',
 	];
 
 
@@ -41,7 +43,7 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 	function prepare()
 	{
 		extract($this->params);
-		if (isset($this->params['message'])) trigger_error('Variable $message overwritten in foreach on line 104');
+		if (isset($this->params['message'])) trigger_error('Variable $message overwritten in foreach on line 134');
 		Nette\Bridges\ApplicationLatte\UIRuntime::initialize($this, $this->parentName, $this->blocks);
 		
 	}
@@ -87,6 +89,11 @@ class Template4865c60dc8 extends Latte\Runtime\Template
         background-color: white;
     }
 
+    .input-group {
+        display: inline;
+        width: 100%;
+    }
+
     #panel-footer {
         position: absolute;
         bottom: 0%;
@@ -95,14 +102,25 @@ class Template4865c60dc8 extends Latte\Runtime\Template
         left: 5%;
     }
 
-    #usermsg {
-        border-radius: 0%; 
-        width: 93.64%;
+    #snippet--form {
+        display: inline;
+        width: 35%;
     }
 
-    #submitmsg {
-        border-radius: 0%; 
-        width: 6.36%;
+    #frm-sendMessageForm {
+        display: inline;
+        width: 35%;
+    }
+
+    #usermsg {
+        display: inline;
+        width: 100%;
+    }
+
+    #sendPersonalMsg {
+        margin-top: 1%;
+        width: 15%;
+        float: right;
     }
 
 </style>
@@ -118,27 +136,44 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 <script type="text/javascript">
     setInterval(function () {
         $("#refreshBoard").click();
-    }, 1000);
+    }, 10000);
 
+    $(document).on("click", ".open-AddBookDialog", function () {
+        var myBookId = $(this).data('id');
+        $(".modal-body #message_to").val(myBookId);
+    });
+
+    $(document).on("submit", "#newPersonal", function () {
+        setTimeout(function () {
+            $("#newPersonal").hide();
+        }, 1000);
+    });
 </script>
 
-<a class="ajax" id="refreshBoard" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("refreshBoard!")) ?>"></a>
+<a class="ajax" id="refreshBoard" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("refreshBoard!", [$room->id_rooms, $owner->id_users])) ?>"></a>
 
 <div class="container" style="display: block">
 
     <div id="chatPanelMain">
         <div class="panel-heading" style="display: block; width: 100%">
             Chatuješ ako: 
-            <p style="font-size: medium; display: inline"><?php echo LR\Filters::escapeHtmlText($person->login) /* line 75 */ ?></p> |=| 
+            <p style="font-size: medium; display: inline"><?php echo LR\Filters::escapeHtmlText($person->login) /* line 101 */ ?></p> |=| 
             Miestnosť: 
-            <p style="font-size: medium; display: inline"><?php echo LR\Filters::escapeHtmlText($room->title) /* line 77 */ ?></p> |=|
+            <p style="font-size: medium; display: inline"><?php echo LR\Filters::escapeHtmlText($room->title) /* line 103 */ ?></p> |=|
             Správce: 
-            <p style="font-size: medium; display: inline"><?php echo LR\Filters::escapeHtmlText($owner->login) /* line 79 */ ?></p> |=|
+            <p style="font-size: medium; display: inline"><?php echo LR\Filters::escapeHtmlText($owner->login) /* line 105 */ ?></p> |=|
             Počet četujúcich:
-            <p style="font-size: medium; display: inline"><?php echo LR\Filters::escapeHtmlText($count->count) /* line 81 */ ?></p>
-            <div style="display: inline">
-<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('lockedRoom')) ?>"><?php $this->renderBlock('_lockedRoom', $this->params) ?></div><div id="<?php
-		echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('leaveRoom')) ?>"><?php $this->renderBlock('_leaveRoom', $this->params) ?></div>            </div>
+            <p style="font-size: medium; display: inline"><?php echo LR\Filters::escapeHtmlText($count->count) /* line 107 */ ?></p>
+            <div style="display: inline-block; float: right">
+<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('lockedRoom')) ?>"><?php $this->renderBlock('_lockedRoom', $this->params) ?></div>
+<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('leaveRoom')) ?>"><?php $this->renderBlock('_leaveRoom', $this->params) ?></div>
+<?php
+		if ($owner->id_users == $person->id_users) {
+			?>                    <a style="display: inline" class="ajax" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("deleteRoom!", [$room->id_rooms])) ?>"><button class="btn-outlined btn-primary">Vymazať</button></a>
+<?php
+		}
+?>
+            </div>
 
         </div>
 
@@ -152,10 +187,27 @@ class Template4865c60dc8 extends Latte\Runtime\Template
         </div>    
 
 
-        <div style="display: inline; width: 100%" class="input-group">
+        <div style=" width: 100%" class="input-group">
 <div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('form')) ?>"><?php $this->renderBlock('_form', $this->params) ?></div>        </div> 
     </div>
 </body>
+
+<!-- New Personal Message -->
+<div class="modal" id="newPersonal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h3 class="modal-title" id="myModalLabel">Súkromná zpráva</h3>
+            </div>
+            <div class="modal-body" style="height: 150%">
+<div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('zprava')) ?>"><?php $this->renderBlock('_zprava', $this->params) ?></div>            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
 	}
@@ -182,9 +234,7 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 	{
 		extract($_args);
 		$this->global->snippetDriver->enter("leaveRoom", "static");
-?>
-
-                    <a style="display: inline" class="ajax" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("quitRoom!", [$room->id_rooms, $person->id_users])) ?>"><button class="btn-outlined btn-primary">Odísť</button></a>
+		?>                    <a style="display: inline" class="ajax" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("quitRoom!", [$room->id_rooms, $person->id_users])) ?>"><button class="btn-outlined btn-primary">Odísť</button></a>
 <?php
 		$this->global->snippetDriver->leave();
 		
@@ -204,9 +254,14 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 ?>
 
                             <div class="row message-bubble">
-                                <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 107 */ ?> || <?php
-			echo LR\Filters::escapeHtmlText($message->login) /* line 107 */ ?></p>
-                                <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 108 */ ?></span>
+                                <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 137 */ ?> || <?php
+			echo LR\Filters::escapeHtmlText($message->login) /* line 137 */ ?>
+
+                                    <a href="" data-id="<?php echo LR\Filters::escapeHtmlAttr($message->id_users) /* line 138 */ ?>" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </a>
+                                </p>
+                                <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 142 */ ?></span>
                             </div>
 
 <?php
@@ -221,9 +276,33 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 	{
 		extract($_args);
 		$this->global->snippetDriver->enter("form", "static");
-		/* line 122 */ $_tmp = $this->global->uiControl->getComponent("sendMessageForm");
+		/* line 156 */ $_tmp = $this->global->uiControl->getComponent("sendMessageForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
+		$this->global->snippetDriver->leave();
+		
+	}
+
+
+	function blockZprava($_args)
+	{
+		extract($_args);
+		$this->global->snippetDriver->enter("zprava", "static");
+		?>                    <?php
+		/* line 172 */
+		echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $this->global->formsStack[] = $this->global->uiControl["personalMessage"], []);
+?>
+
+                        <?php echo end($this->global->formsStack)["text"]->getControl()->addAttributes(['class' => 'form-control']) /* line 173 */ ?>
+
+                        <?php echo end($this->global->formsStack)["send"]->getControl()->addAttributes(['class' => 'btn btn-success btn-block', 'id' => 'sendPersonalMsg']) /* line 174 */ ?>
+
+
+                    <?php
+		echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd(array_pop($this->global->formsStack));
+?>
+
+<?php
 		$this->global->snippetDriver->leave();
 		
 	}
