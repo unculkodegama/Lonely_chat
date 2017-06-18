@@ -132,24 +132,81 @@
                     <div class="container">
 
                         {foreach $messages as $message}
+                              <!-- Sprava od niekoho -->
+                            {if $message->id_users_to == $person->id_users}
 
-                            <div class="row message-bubble">
-                                <p class="text-muted">{$message->time} || {$message->login} 
-                                    <a href="" data-id="{$message->id_users}" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
-                                        <span class="glyphicon glyphicon-envelope"></span>
-                                    </a>
-                                </p>
-                                <span>{$message->text}</span>
-                            </div>
+                                <div class="row message-bubble">
+                                    <p class="text-muted">{$message->time} || Píše Vám {$message->login} || 
 
+                                        {if $message->id_users_from != $person->id_users}
+
+                                            <a class="ajax" href="" data-id="{$message->id_users}" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </a>
+                                        {/if}
+
+                                        {if $owner->id_users == $person->id_users && $message->id_users_from != $person->id_users}
+
+                                            <a class="ajax" n:href="banUser! $message->id_users_from,$room->id_rooms"><span class="glyphicon glyphicon-ban-circle"></span></a>
+
+                                        {/if}   
+                                    </p>
+
+                                    <span>{$message->text}</span>
+
+                                </div>
+
+                            {elseif $message->id_users_to == NULL}
+                                <!-- Sprava všetkým -->
+                                <div class="row message-bubble">
+
+                                    <p class="text-muted">{$message->time} || {$message->login} ||
+
+                                        {if $message->id_users_from != $person->id_users}
+
+                                            <a class="ajax" href="" data-id="{$message->id_users}" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </a>
+
+                                        {/if}
+                                        {if  $owner->id_users == $person->id_users && $message->id_users_from != $person->id_users}
+
+                                            <a class="ajax" n:href="banUser! $message->id_users_from,$room->id_rooms"><span class="glyphicon glyphicon-ban-circle"></span></a>
+
+                                        {/if} 
+
+                                    </p>
+                                    <span>{$message->text}</span>
+                                </div>
+                            {elseif $message->id_users_from == $person->id_users && $message->id_users_to != null}
+                                <!-- Sprava ja niekomu -->
+                                <div class="row message-bubble">
+                                    <p class="text-muted">{$message->time} || Napísali ste druhej Osobe || 
+
+                                        {if $message->id_users_from != $person->id_users}
+
+                                            <a class="ajax" href="" data-id="{$message->id_users}" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </a>
+                                        {/if}
+
+                                        {if $owner->id_users == $person->id_users && $message->id_users_from != $person->id_users}
+
+                                            <a class="ajax" n:href="banUser! $message->id_users_from,$room->id_rooms"><span class="glyphicon glyphicon-ban-circle"></span></a>
+
+                                        {/if}   
+                                    </p>
+
+                                    <span>{$message->text}</span>
+
+                                </div>
+
+                            {/if}
                         {/foreach}
                     {/snippet}    
                 </div>
-
             </div>              
-
         </div>    
-
 
         <div style=" width: 100%" class="input-group">
             {snippet form} 
@@ -172,7 +229,6 @@
                     {form personalMessage}
                         {input text class => 'form-control'}
                         {input send class => 'btn btn-success btn-block', id => 'sendPersonalMsg'}
-
                     {/form}
                 {/snippet}
             </div>

@@ -18,6 +18,12 @@ class ChatpageModel extends Nette\Object {
         return $date;
     }
 
+    function todaysBannedDate() {
+        date_default_timezone_set('Europe/Prague');
+        $date = date('Y-m-d H:i:s', time() + 3600);
+        return $date;
+    }
+
     function playerQuitGame($idRoom, $idUser) {
         return $this->db->query("DELETE FROM in_room WHERE id_users = ? AND id_rooms = ?", $idUser, $idRoom);
     }
@@ -32,10 +38,6 @@ class ChatpageModel extends Nette\Object {
 
     function setLastMessageInRoom($idRoom, $idUser) {
         return $this->db->query("UPDATE in_room SET last_message = ? WHERE id_users = ? AND id_rooms = ?", $this->todaysDate(), $idUser, $idRoom);
-    }
-
-    function setKickedInRoom($idRoom, $idUser) {
-        return $this->db->query("UPDATE in_room SET kicked = ? WHERE id_users = ? AND id_rooms = ?", $this->todaysDate(), $idUser, $idRoom);
     }
 
     function createMessage($idRoom, $idUserFrom, $idUserTo, $text) {
@@ -96,10 +98,18 @@ class ChatpageModel extends Nette\Object {
     function updateLastActiveRoom($idRooms) {
         return $this->db->query("UPDATE rooms SET last_active = ? WHERE id_rooms = ?", $this->todaysDate(), $idRooms);
     }
-    
+
     function getUsersMessageTo($idRooms, $idActUser) {
         return array($this->db->query('SELECT users.login, users.id_users FROM in_room JOIN users USING(id_users) WHERE '
-                . 'in_room.id_rooms = ? AND in_room.id_users != ?', $idRooms, $idActUser)->fetchPairs('id_users', 'login'));
-        
+                    . 'in_room.id_rooms = ? AND in_room.id_users != ?', $idRooms, $idActUser)->fetchPairs('id_users', 'login'));
     }
+
+    function setKickedInRoom($idRoom, $idUser) {
+        return $this->db->query("UPDATE in_room SET kicked = ? WHERE id_users = ? AND id_rooms = ?", $this->todaysBannedDate(), $idUser, $idRoom);
+    }
+
+    function deleteBannedPerson($idRoom) {
+        return $this->db->query("DELETE FROM in_room WHERE kicked IS NOT NULL AND kicked > (NOW()) AND id_rooms = ?", $idRoom);
+    }
+
 }

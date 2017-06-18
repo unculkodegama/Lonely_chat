@@ -215,8 +215,19 @@ class ChatpagePresenter extends BasePresenter {
         $this->model->deleteInactiveUsers($idOwner);
     }
 
-    function banUser() {
-        
+    function handleBanUser($idUserToBan, $idRoomWhere) {
+        $bannedPerson = $this->model->getPerson($idUserToBan);
+        $ownerBanner = $this->model->getOwnerPerson($idRoomWhere);
+        $this->model->setKickedInRoom($idRoomWhere, $idUserToBan);
+        $this->model->deleteBannedPerson($idRoomWhere);
+
+        if (!$this->isAjax()) {
+            $this->redirect('this');
+        } else {
+            $this->redrawControl('list');
+        }
+
+        $this->model->createMessage($idRoomWhere, $ownerBanner->id_users, null, 'System message -> Správca ' . $ownerBanner->login . ' zabanoval ' . $bannedPerson->login);
     }
 
     function kickUserIfInactive($idRoom) {
@@ -234,7 +245,7 @@ class ChatpagePresenter extends BasePresenter {
             $this->model->deleteRoom($idRoom);
             $this->redirect("Basepage:default");
         } else {
-            $this->flashMessage("Nemôžeš.");
+            $this->model->createMessage($idRoom, $owner, $owner, "System message -> Nemôžeš vymazať miestnosť, ak nie si jediný v nej.");
         }
     }
 

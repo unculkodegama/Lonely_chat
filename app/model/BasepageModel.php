@@ -13,7 +13,7 @@ class BasepageModel extends Nette\Object {
     }
 
     function getAllRooms() {
-        return $this->db->query("SELECT * FROM rooms ORDER BY id_rooms")->fetchAll();
+        return $this->db->query("SELECT * FROM rooms ORDER BY last_active")->fetchAll();
     }
 
     function createRoom($userID, $values) {
@@ -62,5 +62,9 @@ class BasepageModel extends Nette\Object {
         } else {
             return $this->db->query("UPDATE in_room SET entered = ? WHERE id_users = ? AND id_rooms = ?", $this->todaysDate(), $idUser, $idRoom);
         }
+    }
+    
+    function getIfBanned($idUserLocked) {
+       return $this->db->query('SELECT * FROM in_room WHERE (kicked IS NOT NULL AND kicked > NOW()) AND id_users = ?', $idUserLocked)->fetch(); 
     }
 }

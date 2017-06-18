@@ -18,9 +18,12 @@ class BasepagePresenter extends BasePresenter {
     function renderDefault() {
         $rooms = $this->model->getAllRooms();
         $member = $this->model->findOutIfIsMember($this->getUser()->id);
+        $banned = $this->model->getIfBanned($this->getUser()->id)->id_rooms;
+        
         
         $this->template->member = $member;
         $this->template->rooms = $rooms;
+        $this->template->banned = $banned;
     }
 
     function createComponentNewRoomForm() {

@@ -42,13 +42,9 @@
                                     <div style="width: 100%;">
                                         <p style="float: left; margin-bottom: -1px"> {$room->created} </p>    
                                         {if $room->id_users == $user->id}
-                                            <!--
-                                            <form action="{}" method="post" onsubmit="return confirm('Naozaj chcete miestnosť: {$room->title} vymazať?')">
-                                                <a href="" onClick="$(this).closest('form').submit()" class="ajax" id="spanSubmit"><span class="glyphicon glyphicon-remove-sign"></span></a>
-                                            </form>
-                                            -->
+
                                             <span id="spanSubmit" class="glyphicon glyphicon-user"></span>
-                                            
+
                                         {/if}
                                     </div>
 
@@ -57,15 +53,29 @@
                                     <p id='popis' style="overflow: hidden;"> {$room->description} </p>
                                 </div>
                                 </br>
+                                
                                 {if $room->locked == 't'}
-                                    <span class="glyphicon glyphicon-lock"></span>
-                                    {if $member != null}
-                                        <a n:href="enterRoom! $room->id_rooms"><button id='add_local_theme'> Vstúpiť </button></a>
+                                    {if $room->id_rooms != $banned}
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                        {if $member != null}
+                                            <a n:href="enterRoom! $room->id_rooms"><button id='add_local_theme'> Vstúpiť </button></a>
+                                        {/if}
+                                    {/if}
+                                    {if $room->id_rooms == $banned}
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                        <span class=" glyphicon glyphicon-exclamation-sign"> Ban<span>
                                     {/if}
                                 {/if}
+                                
                                 {if $room->locked != 't'}
-                                    <a n:href="enterRoom! $room->id_rooms"><button id='add_local_theme'> Vstúpiť </button></a>
+                                    {if $room->id_rooms != $banned}
+                                        <a n:href="enterRoom! $room->id_rooms"><button id='add_local_theme'> Vstúpiť </button></a>
+                                    {/if}
+                                    {if $room->id_rooms == $banned}
+                                        <span class=" glyphicon glyphicon-exclamation-sign"> Ban<span>
+                                    {/if}
                                 {/if}
+                                
                                 {if $room->id_users == $user->id}
                                     <a href="{link Basepage:editRoom $room->id_rooms}"><button id='add_local_theme'> Upravit Miestnosť </button></a>
                                 {/if}

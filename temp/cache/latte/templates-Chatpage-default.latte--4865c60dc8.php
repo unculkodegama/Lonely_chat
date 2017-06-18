@@ -181,11 +181,8 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 
             <div class="panel-body">
 <div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('list')) ?>"><?php $this->renderBlock('_list', $this->params) ?></div>                </div>
-
             </div>              
-
         </div>    
-
 
         <div style=" width: 100%" class="input-group">
 <div id="<?php echo htmlSpecialChars($this->global->snippetDriver->getHtmlId('form')) ?>"><?php $this->renderBlock('_form', $this->params) ?></div>        </div> 
@@ -252,19 +249,109 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 		$iterations = 0;
 		foreach ($messages as $message) {
 ?>
+                              <!-- Sprava od niekoho -->
+<?php
+			if ($message->id_users_to == $person->id_users) {
+?>
 
-                            <div class="row message-bubble">
-                                <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 137 */ ?> || <?php
-			echo LR\Filters::escapeHtmlText($message->login) /* line 137 */ ?>
-
-                                    <a href="" data-id="<?php echo LR\Filters::escapeHtmlAttr($message->id_users) /* line 138 */ ?>" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
-                                        <span class="glyphicon glyphicon-envelope"></span>
-                                    </a>
-                                </p>
-                                <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 142 */ ?></span>
-                            </div>
+                                <div class="row message-bubble">
+                                    <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 139 */ ?> || Píše Vám <?php
+				echo LR\Filters::escapeHtmlText($message->login) /* line 139 */ ?> || 
 
 <?php
+				if ($message->id_users_from != $person->id_users) {
+?>
+
+                                            <a class="ajax" href="" data-id="<?php echo LR\Filters::escapeHtmlAttr($message->id_users) /* line 143 */ ?>" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </a>
+<?php
+				}
+?>
+
+<?php
+				if ($owner->id_users == $person->id_users && $message->id_users_from != $person->id_users) {
+?>
+
+                                            <a class="ajax" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("banUser!", [$message->id_users_from,$room->id_rooms])) ?>"><span class="glyphicon glyphicon-ban-circle"></span></a>
+
+<?php
+				}
+?>
+                                    </p>
+
+                                    <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 155 */ ?></span>
+
+                                </div>
+
+<?php
+			}
+			elseif ($message->id_users_to == NULL) {
+?>
+                                <!-- Sprava všetkým -->
+                                <div class="row message-bubble">
+
+                                    <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 163 */ ?> || <?php
+				echo LR\Filters::escapeHtmlText($message->login) /* line 163 */ ?> ||
+
+<?php
+				if ($message->id_users_from != $person->id_users) {
+?>
+
+                                            <a class="ajax" href="" data-id="<?php echo LR\Filters::escapeHtmlAttr($message->id_users) /* line 167 */ ?>" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </a>
+
+<?php
+				}
+				if ($owner->id_users == $person->id_users && $message->id_users_from != $person->id_users) {
+?>
+
+                                            <a class="ajax" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("banUser!", [$message->id_users_from,$room->id_rooms])) ?>"><span class="glyphicon glyphicon-ban-circle"></span></a>
+
+<?php
+				}
+?>
+
+                                    </p>
+                                    <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 179 */ ?></span>
+                                </div>
+<?php
+			}
+			elseif ($message->id_users_from == $person->id_users && $message->id_users_to != null) {
+?>
+                                <!-- Sprava ja niekomu -->
+                                <div class="row message-bubble">
+                                    <p class="text-muted"><?php echo LR\Filters::escapeHtmlText($message->time) /* line 184 */ ?> || Napísali ste druhej Osobe || 
+
+<?php
+				if ($message->id_users_from != $person->id_users) {
+?>
+
+                                            <a class="ajax" href="" data-id="<?php echo LR\Filters::escapeHtmlAttr($message->id_users) /* line 188 */ ?>" class="open-AddBookDialog" data-toggle="modal" data-target="#newPersonal">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </a>
+<?php
+				}
+?>
+
+<?php
+				if ($owner->id_users == $person->id_users && $message->id_users_from != $person->id_users) {
+?>
+
+                                            <a class="ajax" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("banUser!", [$message->id_users_from,$room->id_rooms])) ?>"><span class="glyphicon glyphicon-ban-circle"></span></a>
+
+<?php
+				}
+?>
+                                    </p>
+
+                                    <span><?php echo LR\Filters::escapeHtmlText($message->text) /* line 200 */ ?></span>
+
+                                </div>
+
+<?php
+			}
 			$iterations++;
 		}
 		$this->global->snippetDriver->leave();
@@ -276,7 +363,7 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 	{
 		extract($_args);
 		$this->global->snippetDriver->enter("form", "static");
-		/* line 156 */ $_tmp = $this->global->uiControl->getComponent("sendMessageForm");
+		/* line 213 */ $_tmp = $this->global->uiControl->getComponent("sendMessageForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(NULL, FALSE);
 		$_tmp->render();
 		$this->global->snippetDriver->leave();
@@ -289,14 +376,13 @@ class Template4865c60dc8 extends Latte\Runtime\Template
 		extract($_args);
 		$this->global->snippetDriver->enter("zprava", "static");
 		?>                    <?php
-		/* line 172 */
+		/* line 229 */
 		echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $this->global->formsStack[] = $this->global->uiControl["personalMessage"], []);
 ?>
 
-                        <?php echo end($this->global->formsStack)["text"]->getControl()->addAttributes(['class' => 'form-control']) /* line 173 */ ?>
+                        <?php echo end($this->global->formsStack)["text"]->getControl()->addAttributes(['class' => 'form-control']) /* line 230 */ ?>
 
-                        <?php echo end($this->global->formsStack)["send"]->getControl()->addAttributes(['class' => 'btn btn-success btn-block', 'id' => 'sendPersonalMsg']) /* line 174 */ ?>
-
+                        <?php echo end($this->global->formsStack)["send"]->getControl()->addAttributes(['class' => 'btn btn-success btn-block', 'id' => 'sendPersonalMsg']) /* line 231 */ ?>
 
                     <?php
 		echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd(array_pop($this->global->formsStack));
